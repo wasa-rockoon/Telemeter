@@ -8,8 +8,7 @@ CREATE TABLE systems (
   id VARCHAR(32) PRIMARY KEY,
   name TEXT,
   client TEXT,
-  password TEXT,
-  active_flight_id INTEGER
+  password TEXT
 );
 
 CREATE TABLE flights (
