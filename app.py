@@ -65,7 +65,7 @@ class BaseHandler(RequestHandler):
 
             system_id, name, start_time, launch_time, end_time, data = result
 
-            print(result)
+            # print(result)
 
             if recursive:
                 system = self.get_system(system_id, self.get_password(),
@@ -226,59 +226,84 @@ class FlightHandler(BaseHandler):
 
         if flight is None:
             self.send_error(404)
-        else:
-            self.write(json.dumps(flight))
+            return
+
+        self.write(json.dumps(flight))
 
     def put(self, id):
         flight = self.get_flight(id)
 
         if not flight:
             self.send_error(404)
+            return
         elif not flight['system']['admin']:
             self.send_error(403)
-        else:
-            name = self.get_argument('name', None)
-            start_time = self.get_argument('startTime', None)
-            launch_time = self.get_argument('launchTime', None)
-            end_time = self.get_argument('endTime', None)
-            data = self.get_argument('data', None)
+            return
 
-            print(data)
+        name = self.get_argument('name', None)
+        start_time = self.get_argument('startTime', None)
+        launch_time = self.get_argument('launchTime', None)
+        end_time = self.get_argument('endTime', None)
+        data = self.get_argument('data', None)
+        activate = self.get_argument('activate', None)
 
-            with self.db.cursor() as cursor:
-                if name:
-                    sql = 'UPDATE flights SET name = %s'\
-                        ' WHERE id = %s'
-                    cursor.execute(sql, (name, id))
-                if start_time:
-                    sql = 'UPDATE flights SET start_time = %s'\
-                        ' WHERE id = %s'
-                    cursor.execute(
-                        sql, (datetime.fromisoformat(start_time), id))
-                if launch_time:
-                    sql = 'UPDATE flights SET launch_time = %s'\
-                        ' WHERE id = %s'
-                    cursor.execute(
-                        sql, (datetime.fromisoformat(launch_time), id))
-                if end_time:
-                    sql = 'UPDATE flights SET end_time = %s'\
-                        ' WHERE id = %s'
-                    cursor.execute(
-                        sql, (datetime.fromisoformat(end_time), id))
-                if data:
-                    sql = 'UPDATE flights SET data = %s'\
-                        ' WHERE id = %s'
-                    cursor.execute(sql, (data, id))
+        with self.db.cursor() as cursor:
+            if name:
+                sql = 'UPDATE flights SET name = %s'\
+                    ' WHERE id = %s'
+                cursor.execute(sql, (name, id))
+            if start_time:
+                sql = 'UPDATE flights SET start_time = %s'\
+                    ' WHERE id = %s'
+                cursor.execute(
+                    sql, (datetime.fromisoformat(start_time), id))
+            if launch_time:
+                sql = 'UPDATE flights SET launch_time = %s'\
+                    ' WHERE id = %s'
+                cursor.execute(
+                    sql, (datetime.fromisoformat(launch_time), id))
+            if end_time:
+                sql = 'UPDATE flights SET end_time = %s'\
+                    ' WHERE id = %s'
+                cursor.execute(
+                    sql, (datetime.fromisoformat(end_time), id))
+            if data:
+                sql = 'UPDATE flights SET data = %s'\
+                    ' WHERE id = %s'
+                cursor.execute(sql, (data, id))
+            if activate:
+                sql = 'UPDATE flights SET end_time = NULL'\
+                    ' WHERE id = %s'
+                cursor.execute(sql, (id,))
 
-                self.db.commit()
+            self.db.commit()
 
-            flight = self.get_flight(id)
+        flight = self.get_flight(id)
 
-            self.write(json.dumps(flight))
+        self.write(json.dumps(flight))
+
+    def delete(self, id):
+        flight = self.get_flight(id)
+
+        if not flight:
+            self.send_error(404)
+            return
+        elif not flight['system']['admin']:
+            self.send_error(403)
+            return
+
+        with self.db.cursor() as cursor:
+            sql = 'DELETE FROM flights WHERE id = %s'
+            cursor.execute(sql, (id,))
+            self.db.commit()
+
+            sql = 'DELETE FROM packets WHERE flight_id = %s'
+            cursor.execute(sql, (id,))
+
+        self.write(json.dumps({}))
 
 
-
-class PacketsHandler(WebSocketHandler):
+class FlightPacketsHandler(WebSocketHandler):
 
     listeners = defaultdict(lambda: [])
 
@@ -289,8 +314,36 @@ class PacketsHandler(WebSocketHandler):
     def check_origin(self, origin):
         return True
 
+    def get_active_flight_id(self, system_id):
+        with self.db.cursor() as cursor:
+            sql = 'SELECT id FROM flights WHERE system_id = %s'\
+                ' AND end_time IS NULL'
+            cursor.execute(sql, [system_id])
+            result = cursor.fetchone()
+            print('get active', result)
+            if result:
+                id, = result
+                return int(id)
+            else:
+                with self.db.cursor() as cursor:
+                    name = 'New Flight'
+
+                    print('new flight', name, system_id)
+
+                    sql = 'INSERT INTO flights (system_id, name, start_time)'\
+                        ' VALUES (%s, %s, current_timestamp)'\
+                        ' RETURNING id'
+                    cursor.execute(sql, (system_id, name))
+                    id, = cursor.fetchone()
+
+                    self.db.commit()
+
+                    return int(id)
+
+                return None
+
     def open(self, flight_id):
-        self.flight_id = flight_id
+        self.flight_id = int(flight_id)
         self.source = self.get_argument('source')
         start_time = self.get_argument('startTime', None)
         self.start_time = datetime.fromisoformat(start_time) \
@@ -301,8 +354,9 @@ class PacketsHandler(WebSocketHandler):
 
         print('open connection', flight_id, self.source, start_time, end_time)
 
+        FlightPacketsHandler.listeners[self.flight_id].append(self)
+
         if self.start_time:
-            PacketsHandler.listeners[self.flight_id].append(self)
 
             with self.db.cursor() as cursor:
                 if self.end_time:
@@ -333,9 +387,7 @@ class PacketsHandler(WebSocketHandler):
         from_ = message[9]
         raw = message[8:]
 
-        # print('message', time, type, from_)
-
-        for listener in PacketsHandler.listeners[self.flight_id]:
+        for listener in FlightPacketsHandler.listeners[self.flight_id]:
             if listener is not self:
                 listener.send_packet(time, self.source, raw)
 
@@ -367,7 +419,18 @@ class PacketsHandler(WebSocketHandler):
 
     def on_close(self):
         print('close connection', self.flight_id, self.source)
-        PacketsHandler.listeners[self.flight_id].remove(self)
+        FlightPacketsHandler.listeners[self.flight_id].remove(self)
+
+
+
+class ActiveFlightPacketsHandler(FlightPacketsHandler):
+
+    def open(self, system_id):
+        print('open active', system_id)
+        flight_id = self.get_active_flight_id(system_id)
+
+        if flight_id:
+            super().open(flight_id)
 
 
 class App(Application):
@@ -378,7 +441,8 @@ class App(Application):
             (r'/api/systems/([^/]+)/?', SystemHandler),
             (r'/api/systems/([^/]+)/flights/?', FlightListHandler),
             (r'/api/flights/([^/]+)/?', FlightHandler),
-            (r'/api/flights/([^/]+)/packets/?', PacketsHandler),
+            (r'/api/flights/([^/]+)/packets/?', FlightPacketsHandler),
+            (r'/api/systems/([^/]+)/packets/?', ActiveFlightPacketsHandler),
         ]
         Application.__init__(self, handlers, debug=True)
 
