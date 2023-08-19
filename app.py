@@ -347,7 +347,7 @@ class FlightPacketsHandler(WebSocketHandler):
         self.source = self.get_argument('source')
         start_time = self.get_argument('startTime', None)
         self.start_time = datetime.fromisoformat(start_time) \
-            if start_time else None
+            if start_time else datetime.now(timezone.utc)
         end_time = self.get_argument('endTime', None)
         self.end_time = datetime.fromisoformat(end_time) \
             if end_time else None
