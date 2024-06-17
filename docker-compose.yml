@@ -23,13 +23,13 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
 
-  tornado:
-    restart: always
-    build: .
-    container_name: 'iot_tornado'
-    ports:
-      - 8888:8888
-    platform: linux/x86_64
+  # tornado:
+  #   restart: always
+  #   build: .
+  #   container_name: 'iot_tornado'
+  #   ports:
+  #     - 8888:8888
+  #   platform: linux/x86_64
 
 volumes:
   influxdb_data:
