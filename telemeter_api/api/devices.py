@@ -35,6 +35,7 @@ def write_measurement(device_id):
         .tag("TemperatureSensor", "virtual_bme280") \
         .tag("HumiditySensor", "virtual_bme280") \
         .tag("PressureSensor", "virtual_bme280") \
+        .tag("flightID", "2024-06-20") \
         .field("Temperature", virtual_device.generate_measurement()) \
         .field("Humidity", virtual_device.generate_measurement()) \
         .field("Pressure", virtual_device.generate_measurement()) \
