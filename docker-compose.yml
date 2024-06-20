@@ -2,7 +2,7 @@ version: "3.8"
 services:
   influxdb:
     image: influxdb:2.6.1
-    container_name: "iot_influxdb"
+    container_name: "telemeter_influxdb"
     platform: linux/x86_64
     environment:
       INFLUXDB_HTTP_AUTH_ENABLED: "true"
@@ -16,7 +16,7 @@ services:
 
   grafana:
     image: grafana/grafana:9.3.6
-    container_name: "iot_grafana"
+    container_name: "telemeter_grafana"
     platform: linux/x86_64
     environment:
       - GF_INSTALL_PLUGINS=volkovlabs-form-panel
@@ -32,7 +32,7 @@ services:
   tornado:
     restart: always
     build: .
-    container_name: "iot_tornado"
+    container_name: "telemeter_tornado"
     ports:
       - 8888:8888
     platform: linux/x86_64
