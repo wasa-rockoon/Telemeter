@@ -1,7 +1,8 @@
+version: "3.8"
 services:
   influxdb:
     image: influxdb:2.6.1
-    container_name: 'iot_influxdb'
+    container_name: "iot_influxdb"
     platform: linux/x86_64
     environment:
       INFLUXDB_HTTP_AUTH_ENABLED: "true"
@@ -9,10 +10,13 @@ services:
       - 8086:8086
     volumes:
       - influxdb_data:/var/lib/influxdb
+    networks:
+      - ui_network
+      - db_network
 
   grafana:
     image: grafana/grafana:9.3.6
-    container_name: 'iot_grafana'
+    container_name: "iot_grafana"
     platform: linux/x86_64
     environment:
       GF_SERVER_HTTP_PORT: 3002
@@ -22,14 +26,26 @@ services:
       - influxdb
     volumes:
       - grafana_data:/var/lib/grafana
+    networks:
+      - ui_network
 
   tornado:
     restart: always
     build: .
-    container_name: 'iot_tornado'
+    container_name: "iot_tornado"
     ports:
       - 8888:8888
     platform: linux/x86_64
+    volumes:
+      - .:/app
+    env_file: ".env"
+
+    networks:
+      - db_network
+
+networks:
+  db_network:
+  ui_network:
 
 volumes:
   influxdb_data:
