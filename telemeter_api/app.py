@@ -2,12 +2,21 @@ import tornado.ioloop
 import tornado.web
 import tornado.websocket
 from api import devices
+import json
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
     clients = {}
 
     def check_origin(self, origin):
+        # This method can be used to allow/disallow cross-origin requests
+        # Here, it's set to always allow. You might want to restrict it to certain origins.
         return True
+
+    def set_default_headers(self):
+        # Set CORS headers here
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
     
     def open(self):
         print("WebSocket opened")
@@ -19,7 +28,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
     def on_message(self, message):
         print(message)
-        self.write_message(u"You mentioned: " + message)
+        self.write_message(u"You ioned: " + message)
         devices.write_measurement(message)
 
 
@@ -35,9 +44,27 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             client.write_message(message)
 
 class ApiHandler(tornado.web.RequestHandler):  # Add this class
-    def get(self):
+    def set_default_headers(self):
+            # Set CORS headers here
+            self.set_header("Access-Control-Allow-Origin", "*")
+            self.set_header("Access-Control-Allow-Headers",
+                        "x-requested-with, Content-Type, "\
+                        "Access-Control-Allow-Origin")
+            self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+
+    def post(self):
         # Do whatever you need to do for the API call
-        WebSocketHandler.send_to_clients("API call received")
+        body = self.request.body
+        WebSocketHandler.send_to_clients(json.loads(body))  # Send the request body to all clients
+
+    def get(self):
+        WebSocketHandler.send_to_clients("hello")
+        self.write("10")
+    
+    def options(self):
+        self.set_status(204)
+        self.finish()
+
 
 def make_app():
     return tornado.web.Application([

@@ -35,6 +35,6 @@ class Sensor:
             return fetch_json('https://freegeoip.app/json/')
         except Exception:
             return {
-                'latitude':  self.generate_measurement(),
-                'longitude':  self.generate_measurement(),
+                'latitude':  float(self.generate_measurement()),
+                'longitude':  float(self.generate_measurement()),
             }
