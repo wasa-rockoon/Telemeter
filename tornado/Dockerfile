@@ -14,5 +14,5 @@ RUN pip3 install --trusted-host pypi.python.org -r requirements.txt
 EXPOSE 8888
 
 # Run commands when the container launches
-CMD ["python3", "telemeter_api/app.py"]
+CMD ["python3", "app.py"]
 

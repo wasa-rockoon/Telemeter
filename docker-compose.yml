@@ -1,5 +1,15 @@
-version: "3.8"
 services:
+  nginx:
+    restart: always
+    image: nginx:latest
+    container_name: "telemeter_nginx"
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - nginx_network
+
   influxdb:
     image: influxdb:2.6.1
     container_name: "telemeter_influxdb"
@@ -13,6 +23,7 @@ services:
     networks:
       - ui_network
       - db_network
+      - nginx_network
 
   grafana:
     image: grafana/grafana:9.3.6
@@ -28,24 +39,27 @@ services:
       - grafana_data:/var/lib/grafana
     networks:
       - ui_network
+      - nginx_network
 
   tornado:
     restart: always
-    build: .
+    build: ./tornado
     container_name: "telemeter_tornado"
     ports:
       - 8888:8888
     platform: linux/x86_64
     volumes:
-      - .:/app
-    env_file: ".env"
+      - ./tornado:/app
+    env_file: "./tornado/.env"
 
     networks:
       - db_network
+      - nginx_network
 
 networks:
   db_network:
   ui_network:
+  nginx_network:
 
 volumes:
   influxdb_data:
