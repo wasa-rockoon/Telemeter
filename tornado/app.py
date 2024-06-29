@@ -65,10 +65,33 @@ class ApiHandler(tornado.web.RequestHandler):  # Add this class
         self.set_status(204)
         self.finish()
 
+class ApiHandler2(tornado.web.RequestHandler):  # Add this class
+    def set_default_headers(self):
+            # Set CORS headers here
+            self.set_header("Access-Control-Allow-Origin", "*")
+            self.set_header("Access-Control-Allow-Headers",
+                        "x-requested-with, Content-Type, "\
+                        "Access-Control-Allow-Origin")
+            self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+
+    def post(self):
+        # Do whatever you need to do for the API call
+        body = self.request.body
+        WebSocketHandler.send_to_clients(json.loads(body))  # Send the request body to all clients
+
+    def get(self):
+        WebSocketHandler.send_to_clients("hello")
+        self.write("10")
+    
+    def options(self):
+        self.set_status(204)
+        self.finish()
+
 def make_app():
     return tornado.web.Application([
         (r"/", WebSocketHandler),
-        (r"/api", ApiHandler),  # Add this line
+        (r"/send", ApiHandler),  # Add this line
+        (r"/send/2", ApiHandler2)
     ])
 
 if __name__ == "__main__":
