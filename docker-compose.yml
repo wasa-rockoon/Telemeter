@@ -9,6 +9,9 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     networks:
       - nginx_network
+    depends_on:
+      - influxdb
+      - grafana
 
   influxdb:
     image: influxdb:2.6.1
