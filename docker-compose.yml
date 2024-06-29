@@ -21,6 +21,9 @@ services:
       - ./certbot/www:/var/www/certbot
     networks:
       - nginx_network
+    depends_on:
+      - influxdb
+      - grafana
 
   influxdb:
     image: influxdb:2.6.1
