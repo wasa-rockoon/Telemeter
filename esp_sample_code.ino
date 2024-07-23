@@ -4,8 +4,8 @@
 
 const char* ssid     = "XXXX";
 const char* password = "XXXX"; //replace with actual id and password
-char path[] = "/";
-char host[] = "192.168.18.8:5000"; //replace with actual adrress
+char path[] = "/ws";
+char host[] = "192.168.18.8:5000"; //replace with actual address
   
 WebSocketClient webSocketClient;
 
