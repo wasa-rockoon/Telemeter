@@ -1,2 +1,2 @@
 # Rockoon Telemeter
-Download [WebSocketClient library](https://github.com/morrissinger/ESP8266-Websocket) for ESP32
+Download [Arduino WebSockets Client library](https://github.com/Links2004/arduinoWebSockets) for ESP32
