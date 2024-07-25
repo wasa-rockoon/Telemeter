@@ -2,6 +2,7 @@ from cgi import print_environ
 import configparser
 import json
 import os
+import struct
 from datetime import datetime
 from uuid import uuid4
 from influxdb_client import Authorization, InfluxDBClient, Permission, PermissionResource, Point, WriteOptions
@@ -15,12 +16,14 @@ from api.sensor import Sensor
 from influxdb_client.domain.dialect import Dialect
 from dotenv import load_dotenv  # Import load_dotenv from python-dotenv
 
+from .binary_to_float import binary_to_float
+
 URL = os.getenv("INFLUX_URL")
 TOKEN = os.getenv("INFLUX_TOKEN")
 ORG = os.getenv("INFLUX_ORG")
 BUCKET = os.getenv("INFLUX_BUCKET")
 
-def write_measurement(device_id):
+def write_measurement(power_current):
     
 
     influxdb_client = InfluxDBClient(url=URL,
@@ -30,15 +33,16 @@ def write_measurement(device_id):
     virtual_device = Sensor()
     coord = virtual_device.geo()
 
+    power_current = binary_to_float(power_current)
+
+
     point = Point("environment") \
-        .tag("device", device_id) \
+        .tag("device", "esp32") \
         .tag("TemperatureSensor", "virtual_bme280") \
         .tag("HumiditySensor", "virtual_bme280") \
         .tag("PressureSensor", "virtual_bme280") \
         .tag("flightID", "2024-06-20") \
-        .field("Temperature", virtual_device.generate_measurement()) \
-        .field("Humidity", virtual_device.generate_measurement()) \
-        .field("Pressure", virtual_device.generate_measurement()) \
+        .field("power_current", power_current) \
         .field("Lat", coord['latitude']) \
         .field("Lon", coord['latitude']) \
         .time(datetime.utcnow())
@@ -49,7 +53,7 @@ def write_measurement(device_id):
     # write() returns None on success
     if client_response is None:
         # TODO Maybe also return the data that was written
-        return device_id
+        return power_current
 
     # Return None on failure
     return None
