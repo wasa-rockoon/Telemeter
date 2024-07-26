@@ -35,6 +35,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
     def on_message(self, message):
         print(message)
+        self.write_message(u"Data Received!")
         devices.write_measurement(message)
 
     def on_close(self):
