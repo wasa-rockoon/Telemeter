@@ -1,59 +1,68 @@
-from cgi import print_environ
-import configparser
-import json
 import os
 from datetime import datetime
-from uuid import uuid4
-from influxdb_client import Authorization, InfluxDBClient, Permission, PermissionResource, Point, WriteOptions
-from influxdb_client.client.authorizations_api import AuthorizationsApi
-from influxdb_client.client.bucket_api import BucketsApi
-from influxdb_client.client.flux_table import FluxStructureEncoder
-from influxdb_client.client.query_api import QueryApi
-from influxdb_client.client.write_api import SYNCHRONOUS
 
-from api.sensor import Sensor
-from influxdb_client.domain.dialect import Dialect
-from dotenv import load_dotenv  # Import load_dotenv from python-dotenv
+from influxdb_client import InfluxDBClient
+from influxdb_client.client.exceptions import InfluxDBError
+from influxdb_client.client.write_api import SYNCHRONOUS
 
 URL = os.getenv("INFLUX_URL")
 TOKEN = os.getenv("INFLUX_TOKEN")
 ORG = os.getenv("INFLUX_ORG")
-BUCKET = os.getenv("INFLUX_BUCKET")
 
-def write_measurement(device_id):
-    
+# Define InfluxDB client
+influxdb_client = InfluxDBClient(url=URL, token=TOKEN, org=ORG)
+write_api = influxdb_client.write_api(write_options=SYNCHRONOUS)
+bucket_api = influxdb_client.buckets_api()
 
-    influxdb_client = InfluxDBClient(url=URL,
-                                     token=TOKEN,
-                                     org=ORG)
-    write_api = influxdb_client.write_api(write_options=SYNCHRONOUS)
-    virtual_device = Sensor()
-    coord = virtual_device.geo()
-
-    point = Point("environment") \
-        .tag("device", device_id) \
-        .tag("TemperatureSensor", "virtual_bme280") \
-        .tag("HumiditySensor", "virtual_bme280") \
-        .tag("PressureSensor", "virtual_bme280") \
-        .tag("flightID", "2024-06-20") \
-        .field("Temperature", virtual_device.generate_measurement()) \
-        .field("Humidity", virtual_device.generate_measurement()) \
-        .field("Pressure", virtual_device.generate_measurement()) \
-        .field("Lat", coord['latitude']) \
-        .field("Lon", coord['latitude']) \
-        .time(datetime.utcnow())
-
-    print(f"Writing: {point.to_line_protocol()}")
-    client_response = write_api.write(bucket=BUCKET, record=point, org=ORG)
-
-    # write() returns None on success
-    if client_response is None:
-        # TODO Maybe also return the data that was written
-        return device_id
-
-    # Return None on failure
-    return None
+# Find latest bucket created by user
+buckets = bucket_api.find_buckets().buckets
+buckets_created_by_user = [bucket for bucket in buckets if bucket.type == "user"]
+bucket = max(buckets_created_by_user, key=lambda x: x.updated_at).name
 
 
+def write_measurement(message):
 
+    data = {
+        "measurement": "environment",
+        "tags": {
+            "device": "device_id",
+            "TemperatureSensor": "virtual_bme280",
+            "HumiditySensor": message,
+            "PressureSensor": "virtual_bme280",
+            "flightID": "2024-06-20",
+        },
+        "fields": {
+            "newField!": 1,
+            "newField2": 2,
+            "Temperature": 5.1,
+            "Humidity": message,
+            "Pressure": 4,
+            "Lat": 135.23,
+            "Lon": 135.4,
+        },
+        "time": datetime.utcnow(),
+    }
 
+    global bucket
+    try:
+        write_api.write(bucket=bucket, record=data, org=ORG)
+        return None
+
+    except InfluxDBError as e:
+        # Storing error log into existing bucket
+        error_data = {
+            "measurement": "error",
+            "fields": {"error": repr(e)},
+        }
+        write_api.write(bucket=bucket, record=error_data, org=ORG)
+
+        # Create new bucket for receiving data
+        bucket = "rockoon" + str(datetime.utcnow())
+        bucket_api.create_bucket(
+            bucket_name="rockoon" + str(datetime.utcnow()),
+            org_id=ORG,
+            description="Bucket created at" + str(datetime.utcnow()),
+        )
+        write_api.write(bucket=bucket, record=data, org=ORG)
+
+        return repr(e)
