@@ -9,7 +9,7 @@ def test_basic_packet():
     sample_buf = bytes()
 
     packets = []
-    ws.connect("ws://localhost:8888")
+    # ws.connect("ws://localhost:8888")
     for i in range(0, 4):
         if i == 0:
             p = Packet.command(ord("A"), 0x11)
