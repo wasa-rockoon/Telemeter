@@ -7,7 +7,6 @@ from influxdb_client.client.exceptions import InfluxDBError
 from influxdb_client.client.write_api import SYNCHRONOUS
 from wcpp import Packet
 
-from .binary_to_float import binary_to_float
 from .handle_packet import handle_packet
 
 URL = os.getenv("INFLUX_URL")
