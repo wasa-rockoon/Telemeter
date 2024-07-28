@@ -7,8 +7,8 @@ datasources:
     url: http://telemeter_influxdb:8086/
     jsonData:
       version: Flux
-      organization: organization
-      defaultBucket: bucket
+      organization: wasa_rockoon
+      defaultBucket: rockoon
       tlsSkipVerify: true
     secureJsonData:
       token: token
