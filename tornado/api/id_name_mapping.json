@@ -1,0 +1,32 @@
+{
+  "entry": {
+    "La": "Latitude",
+    "Lo": "Longitude",
+    "Al": "GPS Altitude",
+    "Ti": "Time",
+    "Va": "Volt(1)",
+    "Vb": "Volt(2)",
+    "Vc": "Volt(3)",
+    "Vd": "Volt(4)",
+    "Ve": "Volt(5)",
+    "Vf": "Volt(6)",
+    "Ia": "Current(1)",
+    "Ib": "Current(2)",
+    "Ic": "Current(3)",
+    "Id": "Current(4)",
+    "Ie": "Current(5)",
+    "If": "Current(6)",
+    "Pr": "Pressure",
+    "Te": "Temperature",
+    "Pa": "Pressure Altitude",
+    "Si": "Sita",
+    "Ph": "Phi",
+    "Tp": "Tank Pressure"
+  },
+  "packet": {
+    "A": "Tracker",
+    "B": "Mission",
+    "C": "Rocket",
+    "D": "Ground Station"
+  }
+}
