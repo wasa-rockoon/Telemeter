@@ -42,8 +42,8 @@ services:
       - influxdb
     volumes:
       - "grafana_data:/var/lib/grafana"
-      - "./grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml"
-      - "./grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml"
+      - "./grafana/datasources:/etc/grafana/provisioning/datasources"
+      - "./grafana/dashboard-settings:/etc/grafana/provisioning/dashboards"
       - "./grafana/dashboards:/var/lib/grafana/dashboards"
     networks:
       - ui_network
