@@ -4,12 +4,12 @@ datasources:
   - name: InfluxDB
     type: influxdb
     access: proxy
-    url: http://telemeter_influxdb:8086/
+    url: ${INFLUX_URL}
     jsonData:
       version: Flux
       organization: wasa_rockoon
       defaultBucket: rockoon
       tlsSkipVerify: true
     secureJsonData:
-      token: token
+      token: ${INFLUX_TOKEN}
     editable: true

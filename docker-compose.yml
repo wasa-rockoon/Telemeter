@@ -38,6 +38,7 @@ services:
       - GF_INSTALL_PLUGINS=volkovlabs-form-panel
     ports:
       - 3000:3000
+    env_file: ".env"
     depends_on:
       - influxdb
     volumes:
@@ -58,7 +59,7 @@ services:
     platform: linux/x86_64
     volumes:
       - ./tornado:/app
-    env_file: "./tornado/.env"
+    env_file: ".env"
     depends_on:
       - influxdb
     networks:

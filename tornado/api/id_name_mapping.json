@@ -16,14 +16,31 @@
     "Id": "Current(4)",
     "Ie": "Current(5)",
     "If": "Current(6)",
+    "Hu": "Humidity",
     "Pr": "Pressure",
     "Te": "Temperature",
+    "Sp": "Standard Pressure",
     "Pa": "Pressure Altitude",
     "Si": "Sita",
     "Ph": "Phi",
     "Tp": "Tank Pressure"
   },
   "packet": {
+    "A": "Tracker",
+    "B": "Mission Base",
+    "C": "Mission Advance",
+    "D": "Rocket",
+    "E": "Ground Station",
+    "Z": "Grafana"
+  },
+  "component": {
+    "A": "GNSS",
+    "B": "Power",
+    "C": "Environment",
+    "D": "Motion",
+    "E": "Thrust"
+  },
+  "unit": {
     "A": "Tracker",
     "B": "Mission",
     "C": "Rocket",

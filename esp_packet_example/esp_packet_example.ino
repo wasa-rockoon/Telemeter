@@ -11,8 +11,25 @@
 WiFiMulti WiFiMulti;
 WebSocketsClient webSocket;
 
-void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
+void printPacket(uint8_t *payload, size_t length) {
+  wcpp::Packet p = wcpp::Packet::decode(payload);
+  Serial.print("Packet id: ");
+  Serial.println(p.packet_id());
+  Serial.print("Packet origin unit id: ");
+  Serial.println(p.origin_unit_id());
+  Serial.print("Packet destination unit id: ");
+  Serial.println(p.dest_unit_id());
+  auto e = p.begin();
+  Serial.print("Entry name: ");
+  Serial.print((*e).name()[0]);
+  Serial.println((*e).name()[1]);
+  Serial.print("Entry value: ");
+  Serial.println(String((*e).getFloat32(), 4));
+  Serial.printf("[WSc] get binary length: %u\n", length);
+  
+}
 
+void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
   switch(type) {
     case WStype_DISCONNECTED:
       Serial.printf("[WSc] Disconnected!\n");
@@ -30,10 +47,7 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
       // webSocket.sendTXT("message here");
       break;
     case WStype_BIN:
-      Serial.printf("[WSc] get binary length: %u\n", length);
-      
-      // send data to server
-      // webSocket.sendBIN(payload, length);
+      printPacket(payload, length);
       break;
     case WStype_ERROR:      
     case WStype_FRAGMENT_TEXT_START:
@@ -61,7 +75,7 @@ void setup() {
     delay(1000);
   }
 
-  WiFiMulti.addAP("ssid", "password");
+  WiFiMulti.addAP("ssid", "pass");
 
   WiFi.disconnect();
   while(WiFiMulti.run() != WL_CONNECTED) {
@@ -69,7 +83,7 @@ void setup() {
   }
 
   // server address, port and URL
-  webSocket.begin("ip adrress", 80, "/ws");
+  webSocket.begin("ipaddress", 80, "/ws");
 
   // event handler
   webSocket.onEvent(webSocketEvent);
@@ -109,12 +123,15 @@ void loop() {
     p.append("Pa").setFloat32(1013.12);
 
 
+    Serial.println(sizeof(buf));
+    
     webSocket.sendBIN(buf, p.size());
     for (int i = 0; i < p.size(); i++) {
       Serial.print(buf[i]);
       Serial.print(", ");
     }
     Serial.println();
+    Serial.println(p.size());
     lastSendTime = currentTime;
 
   }
