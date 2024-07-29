@@ -3,12 +3,13 @@ services:
     restart: always
     image: nginx:latest
     container_name: "telemeter_nginx"
-    depends_on:
-      - influxdb
-      - grafana
     ports:
       - 80:80
       - 443:443
+    depends_on:
+      - influxdb
+      - grafana
+      - tornado
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     networks:
@@ -40,7 +41,10 @@ services:
     depends_on:
       - influxdb
     volumes:
-      - grafana_data:/var/lib/grafana
+      - "grafana_data:/var/lib/grafana"
+      - "./grafana/datasources:/etc/grafana/provisioning/datasources"
+      - "./grafana/dashboard-settings:/etc/grafana/provisioning/dashboards"
+      - "./grafana/dashboards:/var/lib/grafana/dashboards"
     networks:
       - ui_network
       - nginx_network
@@ -55,7 +59,8 @@ services:
     volumes:
       - ./tornado:/app
     env_file: "./tornado/.env"
-
+    depends_on:
+      - influxdb
     networks:
       - db_network
       - nginx_network

@@ -1,0 +1,15 @@
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB
+    type: influxdb
+    access: proxy
+    url: http://telemeter_influxdb:8086/
+    jsonData:
+      version: Flux
+      organization: wasa_rockoon
+      defaultBucket: rockoon
+      tlsSkipVerify: true
+    secureJsonData:
+      token: token
+    editable: true

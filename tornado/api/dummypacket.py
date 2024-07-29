@@ -1,7 +1,4 @@
-import websocket
 from wcpp import Entry, Packet
-
-ws = websocket.WebSocket()
 
 
 def test_basic_packet():
