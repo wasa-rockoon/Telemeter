@@ -3,7 +3,8 @@ import json
 # Change output to file for logging
 import sys
 
-from api import devices
+from lib.send_packet import send_packet
+from lib.write_measurement import write_measurement
 
 import tornado.ioloop
 import tornado.web
@@ -43,7 +44,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         # self.write_message("You said: " + message)
         message_list = list(message)
         print("Received:", message_list)
-        record = devices.write_measurement(message)
+        record = write_measurement(message)
         self.write_message(record)
 
     def on_close(self):
@@ -72,7 +73,7 @@ class ApiHandler(tornado.web.RequestHandler):  # Add this class
 
     def post(self):
         try:
-            buf = devices.send_packet(self.request.body)
+            buf = send_packet(self.request.body)
             WebSocketHandler.send_to_clients(buf)
         except json.JSONDecodeError:
             self.set_status(400)  # Bad Request
