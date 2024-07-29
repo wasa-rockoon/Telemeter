@@ -9,16 +9,15 @@ with open(json_file_path, "r") as f:
 
 
 def handle_name(name: str, name_type: str):
-    if name_type == "packet":
-        name_dict = id_name_mapping.get("packet")
-    elif name_type == "entry":
-        name_dict = id_name_mapping.get("entry")
+    if name_type in id_name_mapping:
+        name_dict = id_name_mapping.get(name_type)
     else:
         return name
 
     if name in name_dict:
         return name_dict.get(name)
-    for key, value in name_dict.items():
-        if name == value:
-            return key
+    else:
+        for key, value in name_dict.items():
+            if name == value:
+                return key
     return name

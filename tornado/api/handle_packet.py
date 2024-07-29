@@ -4,6 +4,7 @@ from wcpp import Entry, Packet
 
 from .handle_name import handle_name
 
+
 def handle_packet(packet: Packet):
     packet_id = chr(packet.packet_id)
     measurement = handle_name(name=packet_id, name_type="packet")

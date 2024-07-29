@@ -1,15 +1,14 @@
-import os
 import json
-import struct
+import os
 from datetime import datetime
 
 from influxdb_client import InfluxDBClient
 from influxdb_client.client.exceptions import InfluxDBError
 from influxdb_client.client.write_api import SYNCHRONOUS
-from wcpp import Packet, Entry
+from wcpp import Entry, Packet
 
-from .handle_packet import handle_packet
 from .handle_name import handle_name
+from .handle_packet import handle_packet
 
 URL = os.getenv("INFLUX_URL")
 TOKEN = os.getenv("INFLUX_TOKEN")
@@ -65,16 +64,19 @@ def write_measurement(buf: bytes):
 def send_packet(data: json):
     data = json.loads(data)
     for key, value in data.items():
-        packet_id = handle_name("Grafana", "packet")
-        component_id = handle_name("Environment", "component")
-        origin_unit_id = handle_name("Ground station", "unit")
-        dest_unit_id = handle_name("Tracker", "unit")
+        packet_id = ord(handle_name("Grafana", "packet"))
+        component_id = ord(handle_name("Environment", "component"))
+        dest_unit_id = ord(handle_name("Tracker", "unit"))
+        origin_unit_id = ord(handle_name("Ground station", "unit"))
         entry_name = handle_name(key, "entry")
         if entry_name == key:
             raise ValueError("Invalid entry name")
-        packet = Packet().telemetry(packet_id=ord("Z"), component_id=ord("A"), origin_unit_id=ord("A"), dest_unit_id=ord("A"))
-        packet.entries = [
-            Entry('Sp').set_float32(float(value))
-        ]
+        packet = Packet().telemetry(
+            packet_id=packet_id,
+            component_id=component_id,
+            origin_unit_id=origin_unit_id,
+            dest_unit_id=dest_unit_id,
+        )
+        packet.entries = [Entry("Sp").set_float32(float(value))]
         buf = packet.encode()
         return buf
