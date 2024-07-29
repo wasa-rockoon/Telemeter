@@ -45,7 +45,6 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         message_list = list(message)
         print("Received:", message_list)
         record = write_measurement(message)
-        self.write_message(record)
 
     def on_close(self):
         print("WebSocket closed")
