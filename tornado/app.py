@@ -5,7 +5,11 @@ from api import devices
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
+from tornado.log import app_log
 
+# Change output to file for logging
+import sys
+sys.stdout = open('out.log', 'a+')
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
     clients = {}
@@ -34,9 +38,10 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self.clients[client_name] = self  # Store the WebSocketHandler instance
 
     def on_message(self, message):
-        print(message)
-        self.write_message(u"Data Received!")
-        devices.write_measurement(message)
+        message_list = list(message)
+        print("Received:", message_list)
+        record = devices.write_measurement(message)
+        self.write_message(record)
 
     def on_close(self):
         print("WebSocket closed")

@@ -9,4 +9,4 @@ six==1.16.0
 tornado==6.4
 typing_extensions==4.12.2
 urllib3==2.2.1
-wcpp @ git+https://github.com/wasa-rockoon/WCPP.git@master
+wcpp @ git+https://github.com/wasa-rockoon/WCPP.git@1-python-elif-error

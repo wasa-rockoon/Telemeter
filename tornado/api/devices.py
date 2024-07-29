@@ -7,7 +7,6 @@ from influxdb_client.client.exceptions import InfluxDBError
 from influxdb_client.client.write_api import SYNCHRONOUS
 from wcpp import Packet
 
-from .binary_to_float import binary_to_float
 from .handle_packet import handle_packet
 
 URL = os.getenv("INFLUX_URL")
@@ -39,7 +38,7 @@ def write_measurement(buf: bytes):
     global bucket
     try:
         write_api.write(bucket=bucket, record=record, org=ORG)
-        return None
+        return record
 
     except InfluxDBError as e:
         # Storing error log into existing bucket
@@ -58,4 +57,4 @@ def write_measurement(buf: bytes):
         )
         write_api.write(bucket=bucket, record=record, org=ORG)
 
-        return None
+        return record

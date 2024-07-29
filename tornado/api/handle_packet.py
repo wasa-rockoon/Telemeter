@@ -8,7 +8,7 @@ def handle_packet(packet: Packet):
 
     tags = {
         "origin": packet.origin_unit_id,
-        "destination": packet.destination_unit_id,
+        "destination": packet.dest_unit_id,
         "component": packet.component_id,
     }
 
@@ -24,6 +24,7 @@ def handle_packet(packet: Packet):
         "tags": tags,
         "fields": fields,
     }
+    print(record)
     return record
 
 
