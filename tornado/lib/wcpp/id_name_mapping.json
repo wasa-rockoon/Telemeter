@@ -2,7 +2,7 @@
   "entry": {
     "La": "latitude",
     "Lo": "longitude",
-    "Al": "gPS altitude",
+    "Al": "gps altitude",
     "Ti": "time",
     "Va": "volt(1)",
     "Vb": "volt(2)",
