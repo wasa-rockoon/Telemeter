@@ -71,6 +71,6 @@ def send_packet(data: json) -> list[bytes]:
     if key not in handlers:
         raise ValueError(f"Invalid key: {key}")
 
-    bufs = handlers[key](key, value)
+    bufs = handlers[key](value)
 
     return bufs
