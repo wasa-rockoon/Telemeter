@@ -1,4 +1,6 @@
 # WASA Telemeter
+## Packet, Entry IDなど
+Packet id, Entry name, component id, unit idなどは、![こちら](./tornado/lib/wcpp/id_name_mapping.json) のjsonファイルに保存してあります。idなどを更新する際は、こちらのjsonファイルも更新していただけると助かります。
 ## Grafana
 Dashboard name: **rockoon_dashboard**
 ## InfluxDB
