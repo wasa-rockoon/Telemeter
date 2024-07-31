@@ -1,4 +1,4 @@
 *.env
 *.ini
-*.cpy
+*.pyc
 certbot/*
