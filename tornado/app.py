@@ -45,7 +45,6 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         message_list = list(message)
         print("Received:", message_list)
         record = write_measurement(message)
-        self.write_message(record)
 
     def on_close(self):
         print("WebSocket closed")
@@ -55,10 +54,11 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             del self.clients[self.client_name]  # Remove the WebSocketHandler instance
 
     @classmethod
-    def send_to_clients(cls, message):
+    def send_to_clients(cls, bufs):
         print(cls.clients)
         for client in cls.clients.values():
-            client.write_message(message, binary=True)
+            for buf in bufs:
+                client.write_message(buf, binary=True)
 
 
 class ApiHandler(tornado.web.RequestHandler):  # Add this class
@@ -73,11 +73,15 @@ class ApiHandler(tornado.web.RequestHandler):  # Add this class
 
     def post(self):
         try:
-            buf = send_packet(self.request.body)
-            WebSocketHandler.send_to_clients(buf)
+            bufs = send_packet(self.request.body)
+            WebSocketHandler.send_to_clients(bufs)
         except json.JSONDecodeError:
             self.set_status(400)  # Bad Request
             self.write({"error": "Invalid JSON."})
+            return
+        except ValueError:
+            self.set_status(400)
+            self.write({"error": "Invalid data."})
             return
 
     def get(self):
