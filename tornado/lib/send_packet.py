@@ -26,6 +26,8 @@ def create_packet(
 
 def sp_handler(value):
     bufs = []
+
+    # Is value a number?
     if not isinstance(value, (int, float)):
         raise ValueError(f"Invalid value: {value}")
     value = float(value)
@@ -44,6 +46,7 @@ def sp_handler(value):
 
 
 def lp_handler(value):
+    # Is value a boolean?
     if not isinstance(value, bool):
         raise ValueError(f"Invalid value: {value}")
 
