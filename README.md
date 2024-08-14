@@ -8,6 +8,81 @@ ESPでサーバと送受信をするプログラムを作成するにあたっ�
 
 ESPからサーバに送る際のサンプルコードは![esp_packet_example](./esp_packet_example/)という名前のディレクトリに入っています。Loop()内では、５秒毎にダミーのパケットを作成してサーバーに送る処理が記載されており、WebSocketEvent()ではESPがサーバから受信したデータの処理を行っています。こちらはArduino IDEでの実行を前提としたコードであるため、Platform IOなどを使用する際は書き直してください。
 
+### コード説明
+```
+WiFiMulti.addAP("ssid", "pass");
+```
+ESPと接続するWifiのssidとパスワードに変更してください。
+
+```
+webSocket.begin("ipaddress", 80, "/ws");
+```
+"ipaddress"を、サーバのIPアドレスに変更してください。IPアドレスは私に聞いてもらえれば個人的に連絡します。
+
+```
+uint8_t buf[255];
+memset(buf, 0, 255);
+wcpp::Packet p = wcpp::Packet::empty(buf, 255);
+p.telemetry('A', 0x11, 0x22, 0x33, 12345);
+p.append("La").setInt(1351234);
+p.append("Lo").setInt(351234);
+p.append("Al").setInt(1234);
+p.append("Ti").setInt(1234);
+p.append("Va").setInt(1111);
+p.append("Vb").setInt(1112);
+p.append("Vc").setInt(1113);
+p.append("Pr").setFloat32(1013.12);
+p.append("Te").setInt(29);
+p.append("Hu").setInt(78);
+p.append("Pa").setFloat32(1013.12);
+```
+`uint_8[]`型の配列にWCPP形式でデータを保存します。`p.telemetry()`でテレメトリ用のパケットを作成します。引数は次の通り`p.telemetry(packet_id, component_id, origin_unit_id, dest_unit_id)`
+
+`p.append()`でエントリを追加します。
+
+```
+webSocket.sendBIN(buf, p.size());
+```
+サーバにデータを送る際は、`uint_8[]`型の配列にWCPP形式でデータを保存し、第一引数に代入します。第二引数には、パケットのサイズを代入します。
+
+```
+webSocket.onEvent(webSocketEvent);
+```
+受信したデータは`webSocketEvent()`に渡されます。(データを受信するたびに`webSocketEvent()`が発火)
+
+```
+void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
+  switch(type) {
+    case WStype_DISCONNECTED:
+      Serial.printf("[WSc] Disconnected!\n");
+      break;
+    case WStype_CONNECTED:
+      Serial.printf("[WSc] Connected to url: %s\n", payload);
+
+      // send message to server when Connected
+      break;
+    case WStype_TEXT:
+            Serial.printf("[WSc] get text: %s\n", payload);
+
+
+      // send message to server
+      // webSocket.sendTXT("message here");
+      break;
+    case WStype_BIN:
+      printPacket(payload, length);
+      break;
+    case WStype_ERROR:      
+    case WStype_FRAGMENT_TEXT_START:
+    case WStype_FRAGMENT_BIN_START:
+    case WStype_FRAGMENT:
+    case WStype_FRAGMENT_FIN:
+      break;
+  }
+
+}
+```
+WCPPはバイナリデータとして送信されるため、`case WStype_BIN`で処理されます。サンプルコードでは、パケットをSerialPrintする`printPacket()`という関数を作成しました。
+
 ## Grafana
 Dashboard name: **rockoon_dashboard**
 ## InfluxDB
