@@ -30,7 +30,7 @@ def write_measurement(buf: bytes):
     try:
         packet = Packet.decode(buf)
     except Exception as e:
-        return repr(e)
+        raise ValueError("Invalid data.")
 
     # Creating records for InfluxDB from packets
     record = handle_packet(packet)
@@ -38,7 +38,7 @@ def write_measurement(buf: bytes):
     global bucket
     try:
         write_api.write(bucket=bucket, record=record, org=ORG)
-        return record
+        return
 
     except InfluxDBError as e:
         # Storing error log into existing bucket
@@ -57,4 +57,4 @@ def write_measurement(buf: bytes):
         )
         write_api.write(bucket=bucket, record=record, org=ORG)
 
-        return record
+        return

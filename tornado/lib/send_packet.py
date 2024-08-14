@@ -58,7 +58,6 @@ def lp_handler(value):
 
 
 def send_packet(data: json) -> list[bytes]:
-    bufs = []
     try:
         data = json.loads(data)
     except json.JSONDecodeError as e:

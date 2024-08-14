@@ -28,7 +28,7 @@ def handle_packet(packet: Packet):
         "tags": tags,
         "fields": fields,
     }
-    print(record)
+    # print(record)
     return record
 
 

@@ -36,6 +36,9 @@
   "component": {
     "A": "gnss",
     "B": "power",
+    "X": "poser_sub1",
+    "Y": "poser_sub2",
+    "Z": "poser_sub3",
     "C": "environment",
     "D": "motion",
     "E": "thrust"
