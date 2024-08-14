@@ -14,10 +14,12 @@ WiFiMulti.addAP("ssid", "pass");
 ```
 ESPと接続するWifiのssidとパスワードに変更してください。
 
+
 ```
 webSocket.begin("ipaddress", 80, "/ws");
 ```
 "ipaddress"を、サーバのIPアドレスに変更してください。IPアドレスは私に聞いてもらえれば個人的に連絡します。
+
 
 ```
 uint8_t buf[255];
@@ -40,15 +42,18 @@ p.append("Pa").setFloat32(1013.12);
 
 `p.append()`でエントリを追加します。
 
+
 ```
 webSocket.sendBIN(buf, p.size());
 ```
 サーバにデータを送る際は、`uint_8[]`型の配列にWCPP形式でデータを保存し、第一引数に代入します。第二引数には、パケットのサイズを代入します。
 
+
 ```
 webSocket.onEvent(webSocketEvent);
 ```
 受信したデータは`webSocketEvent()`に渡されます。(データを受信するたびに`webSocketEvent()`が発火)
+
 
 ```
 void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
