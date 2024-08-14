@@ -15,14 +15,14 @@ WiFiMulti.addAP("ssid", "pass");
 ```
 
 "ipaddress"を、サーバのIPアドレスに変更してください。IPアドレスは私に聞いてもらえれば個人的に連絡します。
-```
+```c++
 webSocket.begin("ipaddress", 80, "/ws");
 ```
 `uint_8[]`型の配列にWCPP形式でデータを保存します。`p.telemetry()`でテレメトリ用のパケットを作成します。引数は次の通り`p.telemetry(packet_id, component_id, origin_unit_id, dest_unit_id)`
 
 `p.append()`でエントリを追加します。
 
-```
+```c++
 uint8_t buf[255];
 memset(buf, 0, 255);
 wcpp::Packet p = wcpp::Packet::empty(buf, 255);
@@ -41,18 +41,18 @@ p.append("Pa").setFloat32(1013.12);
 ```
 
 サーバにデータを送る際は、`uint8_t[]`型の配列にWCPP形式でデータを保存し、第一引数に代入します。第二引数には、パケットのサイズを代入します。
-```
+```c++
 webSocket.sendBIN(buf, p.size());
 ```
 
 受信したデータは`webSocketEvent()`に渡されます。(データを受信するたびに`webSocketEvent()`が発火)
-```
+```c++
 webSocket.onEvent(webSocketEvent);
 ```
 
 WCPPはバイナリデータとして送信されるため、`case WStype_BIN`で処理されます。サンプルコードでは、パケットをSerialPrintする`printPacket()`という関数を作成しました。
 
-```
+```c++
 void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
   switch(type) {
     case WStype_DISCONNECTED:
