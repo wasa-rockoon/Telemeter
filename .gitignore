@@ -1,4 +1,5 @@
 *.env
 *.ini
-*.cpy
+*.pyc
+*.log
 certbot/*

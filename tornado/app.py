@@ -2,6 +2,7 @@ import json
 
 # Change output to file for logging
 import sys
+from datetime import datetime
 
 from lib.send_packet import send_packet
 from lib.write_measurement import write_measurement
@@ -12,6 +13,8 @@ import tornado.websocket
 from tornado.log import app_log
 
 sys.stdout = open("out.log", "a+")
+
+error_log = ""
 
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
@@ -41,10 +44,13 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self.clients[client_name] = self  # Store the WebSocketHandler instance
 
     def on_message(self, message):
-        # self.write_message("You said: " + message)
-        message_list = list(message)
-        print("Received:", message_list)
-        record = write_measurement(message)
+        try:
+            write_measurement(message)
+        except ValueError:
+            self.write_message("Invalid data.")
+        except Exception as e:
+            global error_log
+            error_log = str(datetime.now()) + ": " + str(e)
 
     def on_close(self):
         print("WebSocket closed")
@@ -54,10 +60,11 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             del self.clients[self.client_name]  # Remove the WebSocketHandler instance
 
     @classmethod
-    def send_to_clients(cls, message):
+    def send_to_clients(cls, bufs):
         print(cls.clients)
         for client in cls.clients.values():
-            client.write_message(message, binary=True)
+            for buf in bufs:
+                client.write_message(buf, binary=True)
 
 
 class ApiHandler(tornado.web.RequestHandler):  # Add this class
@@ -72,16 +79,22 @@ class ApiHandler(tornado.web.RequestHandler):  # Add this class
 
     def post(self):
         try:
-            buf = send_packet(self.request.body)
-            WebSocketHandler.send_to_clients(buf)
+            bufs = send_packet(self.request.body)
+            WebSocketHandler.send_to_clients(bufs)
         except json.JSONDecodeError:
             self.set_status(400)  # Bad Request
             self.write({"error": "Invalid JSON."})
             return
+        except ValueError:
+            self.set_status(400)
+            self.write({"error": "Invalid data."})
+            return
+        except Exception as e:
+            self.set_status(400)
+            self.write({"error": "An unexpected error occurred."})
 
     def get(self):
-        WebSocketHandler.send_to_clients("hello")
-        self.write("10")
+        self.write(error_log)
 
     def options(self):
         self.set_status(204)
