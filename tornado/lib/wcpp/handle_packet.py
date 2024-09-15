@@ -6,8 +6,8 @@ from .handle_name import handle_name
 
 
 def handle_packet(packet: Packet):
-    packet_id = chr(packet.packet_id)
-    measurement = handle_name(name=packet_id, name_type="packet")
+    unit_id = chr(packet.unit_id)
+    measurement = handle_name(name=unit_id, name_type="unit")
 
     tags = {
         "origin": packet.origin_unit_id,

@@ -3,27 +3,45 @@
     "La": "latitude",
     "Lo": "longitude",
     "Al": "gps altitude",
-    "Ti": "time",
-    "Va": "volt(1)",
-    "Vb": "volt(2)",
-    "Vc": "volt(3)",
-    "Vd": "volt(4)",
-    "Ve": "volt(5)",
-    "Vf": "volt(6)",
-    "Ia": "current(1)",
-    "Ib": "current(2)",
-    "Ic": "current(3)",
-    "Id": "current(4)",
-    "Ie": "current(5)",
-    "If": "current(6)",
-    "Hu": "humidity",
+
     "Pr": "pressure",
     "Te": "temperature",
-    "Sp": "standard pressure",
+    "Hu": "humidity",
     "Pa": "pressure altitude",
-    "Si": "sita",
+
+    "Tp": "tank pressure",
+    "Np": "thrust pressure",
+    "Tt": "tank temperature",
+
     "Ph": "phi",
-    "Tp": "tank pressure"
+    "Si": "theta",
+
+    "Sc": "power source",
+    "Vb": "backup power voltage",
+    "Vp": "primary power voltage",
+    "Ip": "primary power current",
+    "Pp": "primary power watt",
+    "Wp": "primary power mWh",
+    "Vd": "vdd voltage",
+    "Id": "vdd current",
+    "Pd": "vdd watt",
+    "Wd": "vdd mWh",
+
+    "Cg": "charging",
+    "Vl": "lipo voltage",
+    "Il": "lipo current",
+    "Pl": "lipo watt",
+    "Wl": "lipo mWh",
+    "Dl": "lipo battery level",
+
+    "On": "power on/off",
+    "Vo": "output voltage",
+    "Io": "output current",
+    "Po": "output watt",
+    "Wo": "output mWh",
+
+    "Ut": "unix time",
+    "Ts": "timestamp"
   },
   "packet": {
     "A": "tracker",
@@ -44,9 +62,11 @@
     "E": "thrust"
   },
   "unit": {
-    "A": "tracker",
-    "B": "mission",
-    "C": "rocket",
-    "D": "ground station"
+    "a": "tracker",
+    "b": "mission",
+    "c": "rocket",
+    "d": "ground station1",
+    "e": "ground station2",
+    "f": "ground station3"
   }
 }
