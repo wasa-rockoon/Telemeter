@@ -38,7 +38,7 @@ def write_measurement(buf: bytes):
     global bucket
     try:
         write_api.write(bucket=bucket, record=record, org=ORG)
-        return
+        return record
 
     except InfluxDBError as e:
         # Storing error log into existing bucket

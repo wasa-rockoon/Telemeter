@@ -63,7 +63,7 @@ def send_packet(data: json) -> list[bytes]:
     except json.JSONDecodeError as e:
         raise e
 
-    key, value = data.items()[0]
+    key, value = list(data.items())[0]
 
     handlers = {
         "Sp": sp_handler,

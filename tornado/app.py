@@ -44,12 +44,16 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self.clients[client_name] = self  # Store the WebSocketHandler instance
 
     def on_message(self, message):
+        global error_log
+        error_log = "No error"
         try:
-            write_measurement(message)
+            record = write_measurement(message)
+            print(record)
+            error_log = str(record)
         except ValueError:
             self.write_message("Invalid data.")
+            error_log = str(datetime.now()) + ": " + "Invalid data."
         except Exception as e:
-            global error_log
             error_log = str(datetime.now()) + ": " + str(e)
 
     def on_close(self):
@@ -78,20 +82,24 @@ class ApiHandler(tornado.web.RequestHandler):  # Add this class
         self.set_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
 
     def post(self):
+        global error_log
         try:
             bufs = send_packet(self.request.body)
             WebSocketHandler.send_to_clients(bufs)
         except json.JSONDecodeError:
             self.set_status(400)  # Bad Request
             self.write({"error": "Invalid JSON."})
+            error_log = str(datetime.now()) + ": " + "Invalid JSON."
             return
         except ValueError:
             self.set_status(400)
             self.write({"error": "Invalid data."})
+            error_log = str(datetime.now()) + ": " + "Invalid data."
             return
         except Exception as e:
             self.set_status(400)
             self.write({"error": "An unexpected error occurred."})
+            error_log = str(datetime.now()) + ": " + str(e)
 
     def get(self):
         self.write(error_log)
