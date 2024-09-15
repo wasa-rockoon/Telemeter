@@ -48,8 +48,6 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         error_log = "No error"
         try:
             record = write_measurement(message)
-            print(record)
-            error_log = str(record)
         except ValueError:
             self.write_message("Invalid data.")
             error_log = str(datetime.now()) + ": " + "Invalid data."

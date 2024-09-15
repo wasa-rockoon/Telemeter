@@ -6,7 +6,7 @@ from .handle_name import handle_name
 
 
 def handle_packet(packet: Packet):
-    unit_id = chr(packet.unit_id)
+    unit_id = chr(packet.origin_unit_id)
     measurement = handle_name(name=unit_id, name_type="unit")
 
     tags = {
