@@ -71,7 +71,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 20,
+        "h": 12,
         "w": 10,
         "x": 0,
         "y": 1
@@ -92,6 +92,51 @@
           "showZoom": true
         },
         "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "red"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "B"
+            },
+            "location": {
+              "latitude": "mission_latitude",
+              "longitude": "mission_longitude",
+              "mode": "coords"
+            },
+            "name": "mission",
+            "tooltip": true,
+            "type": "markers"
+          },
           {
             "config": {
               "showLegend": true,
@@ -133,7 +178,187 @@
               "longitude": "tracker_longitude",
               "mode": "coords"
             },
-            "name": "Layer 2",
+            "name": "tracker",
+            "tooltip": true,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "semi-dark-orange"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "C"
+            },
+            "location": {
+              "latitude": "rocket_latitude",
+              "longitude": "rocket_longitude",
+              "mode": "coords"
+            },
+            "name": "rocket",
+            "tooltip": true,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "yellow"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "D"
+            },
+            "location": {
+              "latitude": "ground_station_1_latitude",
+              "longitude": "ground_station_1_longitude",
+              "mode": "coords"
+            },
+            "name": "ground station 1",
+            "tooltip": true,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "blue"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "E"
+            },
+            "location": {
+              "latitude": "ground_station_2_latitude",
+              "longitude": "ground_station_2_longitude",
+              "mode": "coords"
+            },
+            "name": "ground station 2",
+            "tooltip": true,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "purple"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "F"
+            },
+            "location": {
+              "latitude": "ground_station_3_latitude",
+              "longitude": "ground_station_3_longitude",
+              "mode": "coords"
+            },
+            "name": "ground station 3",
             "tooltip": true,
             "type": "markers"
           }
@@ -146,6 +371,7 @@
           "id": "zero",
           "lat": 0,
           "lon": 0,
+          "shared": false,
           "zoom": 1
         }
       },
@@ -156,8 +382,53 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "trackerData = from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      r with\r\n      tracker_latitude: float(v: r.latitude) / 10000.0,\r\n      tracker_longitude: float(v: r.longitude) / 10000.0\r\n    }))\r\n\r\nmissionData = from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      r with\r\n      mission_latitude: float(v: r.latitude) / 10000.0,\r\n      mission_longitude: float(v: r.longitude) / 10000.0\r\n    }))\r\n\r\nunion(tables: [trackerData, missionData])\r\n  |> yield(name: \"result\")\r\n",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,  // Keep the timestamp for later use\r\n      tracker_latitude: float(v: r.latitude),  // Use explicit float conversion\r\n      tracker_longitude: float(v: r.longitude)\r\n    }))\r\n",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "9E7YPBwSk"
+          },
+          "hide": false,
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,  // Keep the timestamp for alignment in union\r\n      mission_latitude: float(v: r.latitude),\r\n      mission_longitude: float(v: r.longitude)\r\n    }))",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "9E7YPBwSk"
+          },
+          "hide": false,
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,  // Keep the timestamp for alignment in union\r\n      rocket_latitude: float(v: r.latitude),\r\n      rocket_longitude: float(v: r.longitude)\r\n    }))",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "9E7YPBwSk"
+          },
+          "hide": false,
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ground station1\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,  // Keep the timestamp for alignment in union\r\n      ground_station_1_latitude: float(v: r.latitude),\r\n      ground_station_1_longitude: float(v: r.longitude)\r\n    }))",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "9E7YPBwSk"
+          },
+          "hide": false,
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ground station2\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,  // Keep the timestamp for alignment in union\r\n      ground_station_2_latitude: float(v: r.latitude),\r\n      ground_station_2_longitude: float(v: r.longitude)\r\n    }))",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "9E7YPBwSk"
+          },
+          "hide": false,
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ground station3\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,  // Keep the timestamp for alignment in union\r\n      ground_station_3_latitude: float(v: r.latitude),\r\n      ground_station_3_longitude: float(v: r.longitude)\r\n    }))",
+          "refId": "F"
         }
       ],
       "title": "Geo Location",
@@ -183,12 +454,13 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "degree"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 3,
         "x": 10,
         "y": 1
@@ -215,7 +487,7 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({r with _value: r._value / 10000.0}))\r\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
         }
       ],
@@ -246,7 +518,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 4,
         "x": 13,
         "y": 1
@@ -273,7 +545,7 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      deg: int(v: r._value / 10000.0),  \r\n      min: int(v: ((r._value / 10000.0) - float(v: int(v: r._value / 10000.0))) * 60.0),  // Extract minutes\r\n      sec: ((((r._value / 10000.0) - float(v: int(v: r._value / 10000.0)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      deg: int(v: r._value),  \r\n      min: int(v: (r._value - float(v: int(v: r._value))) * 60.0),  // Extract minutes\r\n      sec: (((r._value - float(v: int(v: r._value)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
           "refId": "A"
         }
       ],
@@ -305,7 +577,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 3,
         "x": 17,
         "y": 1
@@ -332,7 +604,7 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({r with _value: r._value / 10000.0}))\r\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
         }
       ],
@@ -363,7 +635,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 4,
         "x": 20,
         "y": 1
@@ -390,7 +662,7 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value / 10000.0),  \r\n      minutes: int(v: ((r._value / 10000.0) - float(v: int(v: r._value / 10000.0))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value / 10000.0) - float(v: int(v: r._value / 10000.0)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value),  \r\n      minutes: int(v: ((r._value) - float(v: int(v: r._value))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value) - float(v: int(v: r._value)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
           "refId": "A"
         }
       ],
@@ -422,10 +694,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 3,
         "x": 10,
-        "y": 6
+        "y": 4
       },
       "id": 32,
       "options": {
@@ -449,7 +721,7 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({r with _value: r._value / 10000.0}))\r\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
         }
       ],
@@ -480,10 +752,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 4,
         "x": 13,
-        "y": 6
+        "y": 4
       },
       "id": 37,
       "options": {
@@ -507,7 +779,7 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value / 10000.0),  \r\n      minutes: int(v: ((r._value / 10000.0) - float(v: int(v: r._value / 10000.0))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value / 10000.0) - float(v: int(v: r._value / 10000.0)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value),  \r\n      minutes: int(v: ((r._value) - float(v: int(v: r._value))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value) - float(v: int(v: r._value)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
           "refId": "A"
         }
       ],
@@ -539,10 +811,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 3,
         "x": 17,
-        "y": 6
+        "y": 4
       },
       "id": 38,
       "options": {
@@ -566,7 +838,7 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({r with _value: r._value / 10000.0}))\r\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
         }
       ],
@@ -597,10 +869,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 4,
         "x": 20,
-        "y": 6
+        "y": 4
       },
       "id": 39,
       "options": {
@@ -624,7 +896,7 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value / 10000.0),  \r\n      minutes: int(v: ((r._value / 10000.0) - float(v: int(v: r._value / 10000.0))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value / 10000.0) - float(v: int(v: r._value / 10000.0)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value),  \r\n      minutes: int(v: ((r._value) - float(v: int(v: r._value))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value) - float(v: int(v: r._value)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
           "refId": "A"
         }
       ],
@@ -656,10 +928,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 3,
         "x": 10,
-        "y": 11
+        "y": 7
       },
       "id": 36,
       "options": {
@@ -683,7 +955,7 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({r with _value: r._value / 10000.0}))\r\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
         }
       ],
@@ -714,10 +986,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 4,
         "x": 13,
-        "y": 11
+        "y": 7
       },
       "id": 33,
       "options": {
@@ -741,7 +1013,7 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value / 10000.0),  \r\n      minutes: int(v: ((r._value / 10000.0) - float(v: int(v: r._value / 10000.0))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value / 10000.0) - float(v: int(v: r._value / 10000.0)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value),  \r\n      minutes: int(v: ((r._value) - float(v: int(v: r._value))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value) - float(v: int(v: r._value)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
           "refId": "A"
         }
       ],
@@ -773,10 +1045,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 3,
         "x": 17,
-        "y": 11
+        "y": 7
       },
       "id": 34,
       "options": {
@@ -800,7 +1072,7 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({r with _value: r._value / 10000.0}))\r\n  |> yield(name: \"mean\")",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
         }
       ],
@@ -831,10 +1103,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 4,
         "x": 20,
-        "y": 11
+        "y": 7
       },
       "id": 35,
       "options": {
@@ -858,7 +1130,7 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value / 10000.0),  \r\n      minutes: int(v: ((r._value / 10000.0) - float(v: int(v: r._value / 10000.0))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value / 10000.0) - float(v: int(v: r._value / 10000.0)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value),  \r\n      minutes: int(v: ((r._value) - float(v: int(v: r._value))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value) - float(v: int(v: r._value)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
           "refId": "A"
         }
       ],
@@ -891,10 +1163,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 4,
         "x": 10,
-        "y": 16
+        "y": 10
       },
       "id": 40,
       "options": {
@@ -951,10 +1223,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 4,
         "x": 14,
-        "y": 16
+        "y": 10
       },
       "id": 41,
       "options": {
@@ -1011,10 +1283,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 3,
         "w": 4,
         "x": 18,
-        "y": 16
+        "y": 10
       },
       "id": 42,
       "options": {
@@ -1051,7 +1323,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 13
       },
       "id": 44,
       "panels": [],
@@ -1138,9 +1410,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 10,
+        "w": 12,
         "x": 0,
-        "y": 22
+        "y": 14
       },
       "id": 8,
       "options": {
@@ -1207,9 +1479,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 9,
-        "x": 10,
-        "y": 22
+        "w": 12,
+        "x": 12,
+        "y": 14
       },
       "id": 15,
       "options": {
@@ -1254,66 +1526,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 3,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "mvolt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 19,
-        "y": 22
-      },
-      "id": 24,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"current(3)\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> yield(name: \"mean\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Current (3)",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9E7YPBwSk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
           "custom": {
             "align": "center",
             "displayMode": "auto",
@@ -1384,9 +1596,9 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 12,
+        "w": 24,
         "x": 0,
-        "y": 30
+        "y": 22
       },
       "id": 25,
       "options": {
@@ -1412,426 +1624,12 @@
             "type": "influxdb",
             "uid": "9E7YPBwSk"
           },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"volt(1)\" or r[\"_field\"] == \"volt(2)\" or r[\"_field\"] == \"volt(3)\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    volt_1: r[\"volt(1)\"],\r\n    volt_2: r[\"volt(2)\"],\r\n    volt_3: r[\"volt(3)\"]\r\n  }))\r\n  ",
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    Backup_Volt: r[\"backup power voltage\"],\r\n    Primary_Volt: r[\"primary power voltage\"],\r\n    Primary_Current: r[\"primary power current\"],\r\n    Vdd_Volt: r[\"vdd voltage\"],\r\n    Vdd_current: r[\"vdd current\"],\r\n  }))\r\n  ",
           "refId": "A"
         }
       ],
-      "title": "Voltage",
+      "title": "Power",
       "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9E7YPBwSk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "center",
-            "displayMode": "auto",
-            "filterable": true,
-            "inspect": true
-          },
-          "decimals": 7,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "_time"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Time Stamp"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Latitude {_start=\"2024-07-29 07:05:21.064 +0000 UTC\", _stop=\"2024-07-29 07:10:21.064 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Latitude (緯度)"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Longitude {_start=\"2024-07-29 07:05:21.064 +0000 UTC\", _stop=\"2024-07-29 07:10:21.064 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Latitude (経度)"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "GPS Altitude {_start=\"2024-07-29 07:16:55.673 +0000 UTC\", _stop=\"2024-07-29 07:21:55.674 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
-            },
-            "properties": [
-              {
-                "id": "decimals"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 30
-      },
-      "id": 26,
-      "options": {
-        "footer": {
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "TimeStamp"
-          }
-        ]
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"current(1)\" or r[\"_field\"] == \"current(2)\" or r[\"_field\"] == \"current(3)\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    current_1: r[\"current(1)\"],\r\n    current_2: r[\"current(2)\"],\r\n    current_3: r[\"current(3)\"]\r\n  }))\r\n  ",
-          "refId": "A"
-        }
-      ],
-      "title": "Current",
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9E7YPBwSk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "pressurehpa"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 9,
-        "y": 37
-      },
-      "id": 2,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Pressure",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9E7YPBwSk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 3,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "mvolt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 14,
-        "y": 37
-      },
-      "id": 20,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"volt(2)\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> yield(name: \"mean\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Voltage (2)",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9E7YPBwSk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 3,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "mvolt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 9,
-        "y": 42
-      },
-      "id": 19,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"volt(1)\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,\r\n      volt_1: r[\"volt(1)\"],\r\n    }))\r\n  |> yield(name: \"mean\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Voltage (1)",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9E7YPBwSk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 3,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "mvolt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 14,
-        "y": 42
-      },
-      "id": 23,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"current(2)\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> yield(name: \"mean\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Current (2)",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "9E7YPBwSk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 3,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "mvolt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 9,
-        "y": 47
-      },
-      "id": 21,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "query": "from(bucket: \"${bucket}\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"current(1)\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> yield(name: \"mean\")",
-          "refId": "A"
-        }
-      ],
-      "title": "Current (1)",
-      "type": "stat"
     },
     {
       "collapsed": false,
@@ -1839,7 +1637,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 52
+        "y": 29
       },
       "id": 50,
       "panels": [],
@@ -1928,7 +1726,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 53
+        "y": 30
       },
       "id": 45,
       "options": {
@@ -1997,7 +1795,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 53
+        "y": 30
       },
       "id": 46,
       "options": {
@@ -2114,7 +1912,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 61
+        "y": 38
       },
       "id": 47,
       "options": {
@@ -2229,7 +2027,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 68
+        "y": 45
       },
       "id": 48,
       "options": {
@@ -2268,7 +2066,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 76
+        "y": 53
       },
       "id": 52,
       "panels": [],
@@ -2357,7 +2155,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 77
+        "y": 54
       },
       "id": 53,
       "options": {
@@ -2426,7 +2224,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 77
+        "y": 54
       },
       "id": 54,
       "options": {
@@ -2483,7 +2281,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -2542,7 +2341,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 85
+        "y": 62
       },
       "id": 55,
       "options": {
@@ -2597,7 +2396,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -2656,7 +2456,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 85
+        "y": 62
       },
       "id": 56,
       "options": {
@@ -2695,7 +2495,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 92
+        "y": 69
       },
       "id": 58,
       "panels": [],
@@ -2724,7 +2524,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -2783,7 +2584,7 @@
         "h": 8,
         "w": 10,
         "x": 0,
-        "y": 93
+        "y": 70
       },
       "id": 59,
       "options": {
@@ -2839,7 +2640,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2851,7 +2653,7 @@
         "h": 8,
         "w": 9,
         "x": 10,
-        "y": 93
+        "y": 70
       },
       "id": 60,
       "options": {
@@ -2967,7 +2769,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 101
+        "y": 78
       },
       "id": 61,
       "options": {
@@ -3081,7 +2883,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 101
+        "y": 78
       },
       "id": 62,
       "options": {
@@ -3115,7 +2917,7 @@
       "type": "table"
     }
   ],
-  "refresh": false,
+  "refresh": "5s",
   "schemaVersion": 37,
   "style": "dark",
   "tags": [],
@@ -3123,13 +2925,13 @@
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "rockoon_dashboard",
   "uid": "mbk8PfwIk",
-  "version": 31,
+  "version": 35,
   "weekStart": ""
 }

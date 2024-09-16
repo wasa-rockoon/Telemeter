@@ -16,9 +16,17 @@ def handle_name(name: str, name_type: str):
     else:
         return name
 
+    
+    if(type(name) == int):
+        name = str(name)
+
     # if name is an id
     if name in name_dict:
         return name_dict.get(name)
+    
+    # if name in [int(key) for key in name_dict]:
+    #     return name_dict.get(name)
+
 
     # if name is a name
     name = name.lower()
