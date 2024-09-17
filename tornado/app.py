@@ -12,6 +12,8 @@ import tornado.web
 import tornado.websocket
 from tornado.log import app_log
 
+from lib.predict import get_values
+
 sys.stdout = open("out.log", "a+")
 
 error_log = ""
@@ -46,6 +48,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
     def on_message(self, message):
         global error_log
         error_log = "No error"
+
         try:
             record = write_measurement(message)
         except ValueError:
@@ -100,7 +103,8 @@ class ApiHandler(tornado.web.RequestHandler):  # Add this class
             error_log = str(datetime.now()) + ": " + str(e)
 
     def get(self):
-        self.write(error_log)
+        url = get_values()
+        self.write(url)
 
     def options(self):
         self.set_status(204)

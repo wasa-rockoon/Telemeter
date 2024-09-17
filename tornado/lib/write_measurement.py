@@ -49,8 +49,7 @@ def write_measurement(buf: bytes):
         write_api.write(bucket=bucket, record=error_record, org=ORG)
 
         # Create new bucket for receiving record
-        bucket_api.find_bucket_by_name(bucket_name)
-        bucket_api.delete_bucket(bucket_name)
+        bucket_name = "rockoon" + str(datetime.utcnow())
         bucket_api.create_bucket(
             bucket_name=bucket_name,
             org_id=ORG,
