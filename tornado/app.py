@@ -10,7 +10,6 @@ from lib.write_measurement import write_measurement
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
-from tornado.log import app_log
 
 from lib.predict import get_values
 
@@ -47,9 +46,9 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
     def on_message(self, message):
         global error_log
-        error_log = "No error"
 
         try:
+            error_log = ""
             record = write_measurement(message)
         except ValueError:
             self.write_message("Invalid data.")
@@ -104,7 +103,10 @@ class ApiHandler(tornado.web.RequestHandler):  # Add this class
 
     def get(self):
         url = get_values()
-        self.write(url)
+        if error_log:
+            self.write({"error": error_log})
+        else: 
+            self.write(url)
 
     def options(self):
         self.set_status(204)

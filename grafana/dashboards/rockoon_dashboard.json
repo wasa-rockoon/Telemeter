@@ -1195,6 +1195,12 @@
         }
       ],
       "title": "Tracker Altitude",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {}
+        }
+      ],
       "type": "stat"
     },
     {
@@ -1318,7 +1324,7 @@
       "type": "stat"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1326,714 +1332,711 @@
         "y": 15
       },
       "id": 44,
-      "panels": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "center",
-                "displayMode": "auto",
-                "filterable": true,
-                "inspect": true
-              },
-              "decimals": 7,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "_time"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Time Stamp"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Latitude {_start=\"2024-07-29 07:05:21.064 +0000 UTC\", _stop=\"2024-07-29 07:10:21.064 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Latitude (緯度)"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Longitude {_start=\"2024-07-29 07:05:21.064 +0000 UTC\", _stop=\"2024-07-29 07:10:21.064 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Latitude (経度)"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "GPS Altitude {_start=\"2024-07-29 07:16:55.673 +0000 UTC\", _stop=\"2024-07-29 07:21:55.674 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
-                },
-                "properties": [
-                  {
-                    "id": "decimals"
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 24
-          },
-          "id": 64,
-          "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "TimeStamp"
-              }
-            ]
-          },
-          "pluginVersion": "9.3.6",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "9E7YPBwSk"
-              },
-              "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"gps altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    latitude: r.latitude,\r\n    longitude: r.longitude,\r\n    gpsaltitude: r[\"gps altitude\"]\r\n  }))\r\n|> map(fn: (r) => ({\r\n      r with\r\n      latitude: float(v: r.latitude),\r\n      longitude: float(v: r.longitude)\r\n    }))",
-              "refId": "A"
-            }
-          ],
-          "title": "Geo Location",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {
-                  "TimeStamp": 0,
-                  "gpsaltitude": 3,
-                  "latitude": 1,
-                  "longitude": 2
-                },
-                "renameByName": {}
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "fixedColor": "text",
-                "mode": "fixed"
-              },
-              "custom": {
-                "align": "center",
-                "displayMode": "color-text",
-                "filterable": true,
-                "inspect": false
-              },
-              "decimals": 4,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 24
-          },
-          "id": 15,
-          "options": {
-            "footer": {
-              "enablePagination": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "frameIndex": 1,
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "TimeStamp"
-              }
-            ]
-          },
-          "pluginVersion": "9.3.6",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "9E7YPBwSk"
-              },
-              "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\" or r[\"_field\"] == \"temperature\" or r[\"_field\"] == \"pressure altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      TimeStamp: r._time,\r\n      pressure: r.pressure,\r\n      temperature: r.temperature,\r\n      altitude: r[\"pressure altitude\"]\r\n    }))",
-              "refId": "A"
-            }
-          ],
-          "title": "Environment",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {
-                  "TimeStamp": 0,
-                  "altitude": 3,
-                  "pressure": 2,
-                  "temperature": 1
-                },
-                "renameByName": {}
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "center",
-                "displayMode": "auto",
-                "filterable": true,
-                "inspect": true
-              },
-              "decimals": 7,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 32
-          },
-          "id": 25,
-          "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "TimeStamp"
-              }
-            ]
-          },
-          "pluginVersion": "9.3.6",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "9E7YPBwSk"
-              },
-              "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    Backup_Volt: r[\"backup power voltage\"],\r\n    Primary_Volt: r[\"primary power voltage\"],\r\n    Primary_Current: r[\"primary power current\"],\r\n    Vdd_Volt: r[\"vdd voltage\"],\r\n    Vdd_current: r[\"vdd current\"],\r\n  }))\r\n  ",
-              "refId": "A"
-            }
-          ],
-          "title": "Power",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {
-                  "Backup_Volt": 3,
-                  "Primary_Current": 2,
-                  "Primary_Volt": 1,
-                  "TimeStamp": 0,
-                  "Vdd_Volt": 4,
-                  "Vdd_current": 5
-                },
-                "renameByName": {}
-              }
-            }
-          ],
-          "type": "table"
-        }
-      ],
+      "panels": [],
       "title": "Tracker",
       "type": "row"
     },
     {
-      "collapsed": true,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "9E7YPBwSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": true
+          },
+          "decimals": 7,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Time Stamp"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latitude {_start=\"2024-07-29 07:05:21.064 +0000 UTC\", _stop=\"2024-07-29 07:10:21.064 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Latitude (緯度)"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Longitude {_start=\"2024-07-29 07:05:21.064 +0000 UTC\", _stop=\"2024-07-29 07:10:21.064 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Latitude (経度)"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GPS Altitude {_start=\"2024-07-29 07:16:55.673 +0000 UTC\", _stop=\"2024-07-29 07:21:55.674 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
+            },
+            "properties": [
+              {
+                "id": "decimals"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 64,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "TimeStamp"
+          }
+        ]
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "9E7YPBwSk"
+          },
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"gps altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    latitude: r.latitude,\r\n    longitude: r.longitude,\r\n    gpsaltitude: r[\"gps altitude\"]\r\n  }))\r\n|> map(fn: (r) => ({\r\n      r with\r\n      latitude: float(v: r.latitude),\r\n      longitude: float(v: r.longitude)\r\n    }))",
+          "refId": "A"
+        }
+      ],
+      "title": "Geo Location",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "TimeStamp": 0,
+              "gpsaltitude": 3,
+              "latitude": 1,
+              "longitude": 2
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "9E7YPBwSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "color-text",
+            "filterable": true,
+            "inspect": false
+          },
+          "decimals": 4,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "id": 15,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "TimeStamp"
+          }
+        ]
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "9E7YPBwSk"
+          },
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\" or r[\"_field\"] == \"temperature\" or r[\"_field\"] == \"pressure altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      TimeStamp: r._time,\r\n      pressure: r.pressure,\r\n      temperature: r.temperature,\r\n      altitude: r[\"pressure altitude\"]\r\n    }))",
+          "refId": "A"
+        }
+      ],
+      "title": "Environment",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "TimeStamp": 0,
+              "altitude": 3,
+              "pressure": 2,
+              "temperature": 1
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "9E7YPBwSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": true
+          },
+          "decimals": 7,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 25,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "TimeStamp"
+          }
+        ]
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "9E7YPBwSk"
+          },
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    Backup_Volt: r[\"backup power voltage\"],\r\n    Primary_Volt: r[\"primary power voltage\"],\r\n    Primary_Current: r[\"primary power current\"],\r\n    Vdd_Volt: r[\"vdd voltage\"],\r\n    Vdd_current: r[\"vdd current\"],\r\n  }))\r\n  ",
+          "refId": "A"
+        }
+      ],
+      "title": "Power",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Backup_Volt": 3,
+              "Primary_Current": 2,
+              "Primary_Volt": 1,
+              "TimeStamp": 0,
+              "Vdd_Volt": 4,
+              "Vdd_current": 5
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 31
       },
       "id": 50,
-      "panels": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "center",
-                "displayMode": "auto",
-                "filterable": true,
-                "inspect": true
-              },
-              "decimals": 7,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "_time"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Time Stamp"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Latitude {_start=\"2024-07-29 07:05:21.064 +0000 UTC\", _stop=\"2024-07-29 07:10:21.064 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Latitude (緯度)"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Longitude {_start=\"2024-07-29 07:05:21.064 +0000 UTC\", _stop=\"2024-07-29 07:10:21.064 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Latitude (経度)"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "GPS Altitude {_start=\"2024-07-29 07:16:55.673 +0000 UTC\", _stop=\"2024-07-29 07:21:55.674 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
-                },
-                "properties": [
-                  {
-                    "id": "decimals"
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 25
-          },
-          "id": 45,
-          "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "TimeStamp"
-              }
-            ]
-          },
-          "pluginVersion": "9.3.6",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "9E7YPBwSk"
-              },
-              "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"gps altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> keep(columns: [\"_time\", \"latitude\", \"longitude\", \"gps altitude\"])\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    latitude: r.latitude,\r\n    longitude: r.longitude,\r\n    gpsaltitude: r[\"gps altitude\"]\r\n  }))\r\n",
-              "refId": "A"
-            }
-          ],
-          "title": "Geo Location",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {
-                  "TimeStamp": 0,
-                  "gpsaltitude": 3,
-                  "latitude": 1,
-                  "longitude": 2
-                },
-                "renameByName": {
-                  "latitude": ""
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "fixedColor": "text",
-                "mode": "fixed"
-              },
-              "custom": {
-                "align": "center",
-                "displayMode": "color-text",
-                "filterable": true,
-                "inspect": false
-              },
-              "decimals": 4,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 25
-          },
-          "id": 46,
-          "options": {
-            "footer": {
-              "enablePagination": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "frameIndex": 1,
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "TimeStamp"
-              }
-            ]
-          },
-          "pluginVersion": "9.3.6",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "9E7YPBwSk"
-              },
-              "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\" or r[\"_field\"] == \"temperature\" or r[\"_field\"] == \"pressure altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      TimeStamp: r._time,\r\n      pressure: r.pressure,\r\n      temperature: r.temperature,\r\n      altitude: r[\"pressure altitude\"]\r\n    }))",
-              "refId": "A"
-            }
-          ],
-          "title": "Environment",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {
-                  "TimeStamp": 0,
-                  "altitude": 3,
-                  "pressure": 2,
-                  "temperature": 1
-                },
-                "renameByName": {}
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "fixedColor": "text",
-                "mode": "fixed"
-              },
-              "custom": {
-                "align": "center",
-                "displayMode": "color-text",
-                "filterable": true,
-                "inspect": false
-              },
-              "decimals": 4,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 24,
-            "x": 0,
-            "y": 33
-          },
-          "id": 65,
-          "options": {
-            "footer": {
-              "enablePagination": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "frameIndex": 1,
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "TimeStamp"
-              }
-            ]
-          },
-          "pluginVersion": "9.3.6",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "9E7YPBwSk"
-              },
-              "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"tank pressure\" or r[\"_field\"] == \"thrust pressure\" or r[\"_field\"] == \"tank temperature\" or r[\"_field\"] == \"phi\" or r[\"_field\"] == \"theta\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      TimeStamp: r._time,\r\n      tank_pressure: r[\"tank pressure\"],\r\n      thrust_pressure: r[\"thrust pressure\"],\r\n      tank_temperature: r[\"tank temperature\"],\r\n      phi: r[\"phi\"],\r\n      theta: r[\"theta\"]\r\n    }))",
-              "refId": "A"
-            }
-          ],
-          "title": "Environment (Mission specific)",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {
-                  "TimeStamp": 0,
-                  "phi": 4,
-                  "tank_pressure": 1,
-                  "tank_temperature": 3,
-                  "theta": 5,
-                  "thrust_pressure": 2
-                },
-                "renameByName": {}
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "9E7YPBwSk"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "center",
-                "displayMode": "auto",
-                "filterable": true,
-                "inspect": true
-              },
-              "decimals": 7,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 41
-          },
-          "id": 63,
-          "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "TimeStamp"
-              }
-            ]
-          },
-          "pluginVersion": "9.3.6",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "9E7YPBwSk"
-              },
-              "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    Backup_Volt: r[\"backup power voltage\"],\r\n    Primary_Volt: r[\"primary power voltage\"],\r\n    Primary_Current: r[\"primary power current\"],\r\n    Vdd_Volt: r[\"vdd voltage\"],\r\n    Vdd_current: r[\"vdd current\"],\r\n  }))\r\n  ",
-              "refId": "A"
-            }
-          ],
-          "title": "Power",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {
-                  "Backup_Volt": 3,
-                  "Primary_Current": 2,
-                  "Primary_Volt": 1,
-                  "TimeStamp": 0,
-                  "Vdd_Volt": 4,
-                  "Vdd_current": 5
-                },
-                "renameByName": {}
-              }
-            }
-          ],
-          "type": "table"
-        }
-      ],
+      "panels": [],
       "title": "Mission ",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "9E7YPBwSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": true
+          },
+          "decimals": 7,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "_time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Time Stamp"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Latitude {_start=\"2024-07-29 07:05:21.064 +0000 UTC\", _stop=\"2024-07-29 07:10:21.064 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Latitude (緯度)"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Longitude {_start=\"2024-07-29 07:05:21.064 +0000 UTC\", _stop=\"2024-07-29 07:10:21.064 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Latitude (経度)"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GPS Altitude {_start=\"2024-07-29 07:16:55.673 +0000 UTC\", _stop=\"2024-07-29 07:21:55.674 +0000 UTC\", component=\"17\", destination=\"51\", origin=\"34\"}"
+            },
+            "properties": [
+              {
+                "id": "decimals"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 32
+      },
+      "id": 45,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "TimeStamp"
+          }
+        ]
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "9E7YPBwSk"
+          },
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"gps altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> keep(columns: [\"_time\", \"latitude\", \"longitude\", \"gps altitude\"])\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    latitude: r.latitude,\r\n    longitude: r.longitude,\r\n    gpsaltitude: r[\"gps altitude\"]\r\n  }))\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Geo Location",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "TimeStamp": 0,
+              "gpsaltitude": 3,
+              "latitude": 1,
+              "longitude": 2
+            },
+            "renameByName": {
+              "latitude": ""
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "9E7YPBwSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "color-text",
+            "filterable": true,
+            "inspect": false
+          },
+          "decimals": 4,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 32
+      },
+      "id": 46,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "TimeStamp"
+          }
+        ]
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "9E7YPBwSk"
+          },
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\" or r[\"_field\"] == \"temperature\" or r[\"_field\"] == \"pressure altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      TimeStamp: r._time,\r\n      pressure: r.pressure,\r\n      temperature: r.temperature,\r\n      altitude: r[\"pressure altitude\"]\r\n    }))",
+          "refId": "A"
+        }
+      ],
+      "title": "Environment",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "TimeStamp": 0,
+              "altitude": 3,
+              "pressure": 2,
+              "temperature": 1
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "9E7YPBwSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "color-text",
+            "filterable": true,
+            "inspect": false
+          },
+          "decimals": 4,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 40
+      },
+      "id": 65,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "TimeStamp"
+          }
+        ]
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "9E7YPBwSk"
+          },
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"tank pressure\" or r[\"_field\"] == \"thrust pressure\" or r[\"_field\"] == \"tank temperature\" or r[\"_field\"] == \"phi\" or r[\"_field\"] == \"theta\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      TimeStamp: r._time,\r\n      tank_pressure: r[\"tank pressure\"],\r\n      thrust_pressure: r[\"thrust pressure\"],\r\n      tank_temperature: r[\"tank temperature\"],\r\n      phi: r[\"phi\"],\r\n      theta: r[\"theta\"]\r\n    }))",
+          "refId": "A"
+        }
+      ],
+      "title": "Environment (Mission specific)",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "TimeStamp": 0,
+              "phi": 4,
+              "tank_pressure": 1,
+              "tank_temperature": 3,
+              "theta": 5,
+              "thrust_pressure": 2
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "9E7YPBwSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": true
+          },
+          "decimals": 7,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 48
+      },
+      "id": 63,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "TimeStamp"
+          }
+        ]
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "9E7YPBwSk"
+          },
+          "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    Backup_Volt: r[\"backup power voltage\"],\r\n    Primary_Volt: r[\"primary power voltage\"],\r\n    Primary_Current: r[\"primary power current\"],\r\n    Vdd_Volt: r[\"vdd voltage\"],\r\n    Vdd_current: r[\"vdd current\"],\r\n  }))\r\n  ",
+          "refId": "A"
+        }
+      ],
+      "title": "Power",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Backup_Volt": 3,
+              "Primary_Current": 2,
+              "Primary_Volt": 1,
+              "TimeStamp": 0,
+              "Vdd_Volt": 4,
+              "Vdd_current": 5
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "collapsed": true,
@@ -2041,7 +2044,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 55
       },
       "id": 52,
       "panels": [
@@ -2067,8 +2070,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               }
@@ -2127,7 +2129,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 26
+            "y": 34
           },
           "id": 66,
           "options": {
@@ -2198,8 +2200,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -2211,7 +2212,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 26
+            "y": 34
           },
           "id": 54,
           "options": {
@@ -2283,8 +2284,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               }
@@ -2343,7 +2343,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 34
+            "y": 42
           },
           "id": 67,
           "options": {
@@ -2403,7 +2403,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 56
       },
       "id": 58,
       "panels": [
@@ -2429,8 +2429,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               }
@@ -2489,7 +2488,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 27
+            "y": 35
           },
           "id": 68,
           "options": {
@@ -2559,8 +2558,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               }
@@ -2619,7 +2617,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 27
+            "y": 35
           },
           "id": 70,
           "options": {
@@ -2679,7 +2677,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 57
       },
       "id": 72,
       "panels": [
@@ -2705,8 +2703,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               }
@@ -2765,7 +2762,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 28
+            "y": 36
           },
           "id": 73,
           "options": {
@@ -2835,8 +2832,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               }
@@ -2895,7 +2891,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 28
+            "y": 36
           },
           "id": 75,
           "options": {
@@ -2955,7 +2951,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 58
       },
       "id": 79,
       "panels": [
@@ -2981,8 +2977,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               }
@@ -3041,7 +3036,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 37
+            "y": 45
           },
           "id": 76,
           "options": {
@@ -3102,8 +3097,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               }
@@ -3162,7 +3156,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 37
+            "y": 45
           },
           "id": 77,
           "options": {
@@ -3225,13 +3219,13 @@
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "rockoon_dashboard",
   "uid": "mbk8PfwIk",
-  "version": 38,
+  "version": 41,
   "weekStart": ""
 }

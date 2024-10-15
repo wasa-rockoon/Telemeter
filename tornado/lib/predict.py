@@ -91,29 +91,33 @@ def get_values():
         |> filter(fn: (r) => r._field == "latitude" or r._field == "longitude" or r._field == "pressure altitude")\
         |> last()'
     
-    result = query_api.query(query=query, org=ORG)
-    results = {}
-    for table in result:
-        for record in table.records:
-            results[record.get_field()] = record.get_value()
-    results["time"] = record.get_time().isoformat()
+    try: 
+        result = query_api.query(query=query, org=ORG)
+        results = {}
+        for table in result:
+            for record in table.records:
+                results[record.get_field()] = record.get_value()
+        results["time"] = record.get_time().isoformat()
 
-    query_params = {
-        'launch_latitude': results["latitude"],
-        'launch_longitude': results["longitude"],
-        'launch_datetime': results["time"],
-        'launch altitude': results["pressure altitude"],
-        'ascent_rate': 5.0,
-        'burst_altitude': 20000,
-        'descent_rate': 5.0,
-        'profile': 'standard_profile',
-        'prediction_type': "Gaussian_distribution"
-    }
-    encoded_params = urllib.parse.urlencode(query_params)
-    url = f'https://wasa-rockoon.github.io/Falling-position-simulator/?{encoded_params}'
+        query_params = {
+            'launch_latitude': results["latitude"],
+            'launch_longitude': results["longitude"],
+            'launch_datetime': results["time"],
+            'launch altitude': results["pressure altitude"],
+            'ascent_rate': 5.0,
+            'burst_altitude': 20000,
+            'descent_rate': 5.0,
+            'profile': 'standard_profile',
+            'prediction_type': "Gaussian_distribution"
+        }
+        encoded_params = urllib.parse.urlencode(query_params)
+        url = f'https://wasa-rockoon.github.io/Falling-position-simulator/?{encoded_params}'
 
-    print(url)
-    return url
+        print(url)
+        return url
+    except Exception as e:
+        print(e)
+        return str(f"Error when fetching InfluxDB data: {e}")
     
     
 
