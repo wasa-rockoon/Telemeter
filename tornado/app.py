@@ -1,7 +1,6 @@
 import json
+import logging
 
-# Change output to file for logging
-import sys
 from datetime import datetime
 
 from lib.send_packet import send_packet
@@ -13,7 +12,11 @@ import tornado.websocket
 
 from lib.predict import get_values
 
-sys.stdout = open("out.log", "a+")
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
+)
+logger = logging.getLogger(__name__)
 
 error_log = ""
 
@@ -35,7 +38,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self.set_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
 
     def open(self):
-        print("WebSocket opened")
+        logger.info("WebSocket opened")
         client_name = self.get_argument(
             "client_name", "anonymous"
         )  # Get the client name
@@ -53,11 +56,13 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         except ValueError:
             self.write_message("Invalid data.")
             error_log = str(datetime.now()) + ": " + "Invalid data."
+            logger.warning("WebSocket received invalid data")
         except Exception as e:
             error_log = str(datetime.now()) + ": " + str(e)
+            logger.exception("Unexpected error while handling WebSocket message")
 
     def on_close(self):
-        print("WebSocket closed")
+        logger.info("WebSocket closed")
         if (
             self in self.clients.values()
         ):  # Only remove the client if it's still in the clients dictionary
@@ -65,7 +70,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
     @classmethod
     def send_to_clients(cls, bufs):
-        print(cls.clients)
+        logger.info("Sending packets to %d clients", len(cls.clients))
         for client in cls.clients.values():
             for buf in bufs:
                 client.write_message(buf, binary=True)
@@ -90,22 +95,25 @@ class ApiHandler(tornado.web.RequestHandler):  # Add this class
             self.set_status(400)  # Bad Request
             self.write({"error": "Invalid JSON."})
             error_log = str(datetime.now()) + ": " + "Invalid JSON."
+            logger.warning("API received invalid JSON")
             return
         except ValueError:
             self.set_status(400)
             self.write({"error": "Invalid data."})
             error_log = str(datetime.now()) + ": " + "Invalid data."
+            logger.warning("API received invalid data")
             return
         except Exception as e:
             self.set_status(400)
             self.write({"error": "An unexpected error occurred."})
             error_log = str(datetime.now()) + ": " + str(e)
+            logger.exception("Unexpected error in API POST handler")
 
     def get(self):
         url = get_values()
         if error_log:
             self.write({"error": error_log})
-        else: 
+        else:
             self.write(url)
 
     def options(self):
