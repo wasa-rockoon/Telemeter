@@ -43,7 +43,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -380,7 +380,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,  // Keep the timestamp for later use\r\n      tracker_latitude: float(v: r.latitude),  // Use explicit float conversion\r\n      tracker_longitude: float(v: r.longitude)\r\n    }))\r\n",
           "refId": "A"
@@ -388,7 +388,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "hide": false,
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,  // Keep the timestamp for alignment in union\r\n      mission_latitude: float(v: r.latitude),\r\n      mission_longitude: float(v: r.longitude)\r\n    }))",
@@ -397,7 +397,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "hide": false,
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,  // Keep the timestamp for alignment in union\r\n      rocket_latitude: float(v: r.latitude),\r\n      rocket_longitude: float(v: r.longitude)\r\n    }))",
@@ -406,7 +406,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "hide": false,
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ground station1\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,  // Keep the timestamp for alignment in union\r\n      ground_station_1_latitude: float(v: r.latitude),\r\n      ground_station_1_longitude: float(v: r.longitude)\r\n    }))",
@@ -415,7 +415,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "hide": false,
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ground station2\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,  // Keep the timestamp for alignment in union\r\n      ground_station_2_latitude: float(v: r.latitude),\r\n      ground_station_2_longitude: float(v: r.longitude)\r\n    }))",
@@ -424,7 +424,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "hide": false,
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ground station3\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      _time: r._time,  // Keep the timestamp for alignment in union\r\n      ground_station_3_latitude: float(v: r.latitude),\r\n      ground_station_3_longitude: float(v: r.longitude)\r\n    }))",
@@ -437,7 +437,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -472,9 +472,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -485,7 +483,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
@@ -497,7 +495,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -530,9 +528,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -543,7 +539,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      deg: int(v: r._value),  \r\n      min: int(v: (r._value - float(v: int(v: r._value))) * 60.0),  // Extract minutes\r\n      sec: (((r._value - float(v: int(v: r._value)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
           "refId": "A"
@@ -555,7 +551,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -589,9 +585,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -602,7 +596,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
@@ -614,7 +608,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -647,9 +641,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -660,7 +652,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value),  \r\n      minutes: int(v: ((r._value) - float(v: int(v: r._value))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value) - float(v: int(v: r._value)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
           "refId": "A"
@@ -672,7 +664,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -706,9 +698,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -719,7 +709,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
@@ -731,7 +721,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -764,9 +754,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -777,7 +765,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value),  \r\n      minutes: int(v: ((r._value) - float(v: int(v: r._value))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value) - float(v: int(v: r._value)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
           "refId": "A"
@@ -789,7 +777,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -823,9 +811,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -836,7 +822,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
@@ -848,7 +834,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -881,9 +867,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -894,7 +878,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value),  \r\n      minutes: int(v: ((r._value) - float(v: int(v: r._value))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value) - float(v: int(v: r._value)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
           "refId": "A"
@@ -906,7 +890,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -940,9 +924,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -953,7 +935,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
@@ -965,7 +947,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -998,9 +980,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1011,7 +991,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value),  \r\n      minutes: int(v: ((r._value) - float(v: int(v: r._value))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value) - float(v: int(v: r._value)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
           "refId": "A"
@@ -1023,7 +1003,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1057,9 +1037,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1070,7 +1048,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
@@ -1082,7 +1060,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1115,9 +1093,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1128,7 +1104,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"longitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> map(fn: (r) => ({\r\n      \r\n      degrees: int(v: r._value),  \r\n      minutes: int(v: ((r._value) - float(v: int(v: r._value))) * 60.0),  // Extract minutes\r\n      seconds: ((((r._value) - float(v: int(v: r._value)))) * 60.0 % 1.0) * 60.0\r\n    }))\r\n  |> yield(name: \"mean\")\r\n",
           "refId": "A"
@@ -1140,7 +1116,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1175,9 +1151,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1188,7 +1162,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure altitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
@@ -1206,7 +1180,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1241,9 +1215,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1254,7 +1226,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure altitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
@@ -1266,7 +1238,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1301,9 +1273,7 @@
         "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -1314,7 +1284,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure altitude\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
           "refId": "A"
@@ -1339,7 +1309,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1424,9 +1394,7 @@
       "options": {
         "footer": {
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "showHeader": true,
@@ -1442,7 +1410,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"gps altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    latitude: r.latitude,\r\n    longitude: r.longitude,\r\n    gpsaltitude: r[\"gps altitude\"]\r\n  }))\r\n|> map(fn: (r) => ({\r\n      r with\r\n      latitude: float(v: r.latitude),\r\n      longitude: float(v: r.longitude)\r\n    }))",
           "refId": "A"
@@ -1469,7 +1437,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1509,9 +1477,7 @@
         "footer": {
           "enablePagination": false,
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "frameIndex": 1,
@@ -1528,7 +1494,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\" or r[\"_field\"] == \"temperature\" or r[\"_field\"] == \"pressure altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      TimeStamp: r._time,\r\n      pressure: r.pressure,\r\n      temperature: r.temperature,\r\n      altitude: r[\"pressure altitude\"]\r\n    }))",
           "refId": "A"
@@ -1555,7 +1521,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1592,9 +1558,7 @@
       "options": {
         "footer": {
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "showHeader": true,
@@ -1610,7 +1574,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"tracker\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    Backup_Volt: r[\"backup power voltage\"],\r\n    Primary_Volt: r[\"primary power voltage\"],\r\n    Primary_Current: r[\"primary power current\"],\r\n    Vdd_Volt: r[\"vdd voltage\"],\r\n    Vdd_current: r[\"vdd current\"],\r\n  }))\r\n  ",
           "refId": "A"
@@ -1652,7 +1616,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1737,9 +1701,7 @@
       "options": {
         "footer": {
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "showHeader": true,
@@ -1755,7 +1717,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"gps altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> keep(columns: [\"_time\", \"latitude\", \"longitude\", \"gps altitude\"])\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    latitude: r.latitude,\r\n    longitude: r.longitude,\r\n    gpsaltitude: r[\"gps altitude\"]\r\n  }))\r\n",
           "refId": "A"
@@ -1784,7 +1746,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1824,9 +1786,7 @@
         "footer": {
           "enablePagination": false,
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "frameIndex": 1,
@@ -1843,7 +1803,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\" or r[\"_field\"] == \"temperature\" or r[\"_field\"] == \"pressure altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      TimeStamp: r._time,\r\n      pressure: r.pressure,\r\n      temperature: r.temperature,\r\n      altitude: r[\"pressure altitude\"]\r\n    }))",
           "refId": "A"
@@ -1870,7 +1830,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1910,9 +1870,7 @@
         "footer": {
           "enablePagination": false,
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "frameIndex": 1,
@@ -1929,7 +1887,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"tank pressure\" or r[\"_field\"] == \"thrust pressure\" or r[\"_field\"] == \"tank temperature\" or r[\"_field\"] == \"phi\" or r[\"_field\"] == \"theta\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      TimeStamp: r._time,\r\n      tank_pressure: r[\"tank pressure\"],\r\n      thrust_pressure: r[\"thrust pressure\"],\r\n      tank_temperature: r[\"tank temperature\"],\r\n      phi: r[\"phi\"],\r\n      theta: r[\"theta\"]\r\n    }))",
           "refId": "A"
@@ -1958,7 +1916,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "9E7YPBwSk"
+        "uid": "influxdb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1994,9 +1952,7 @@
       "options": {
         "footer": {
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "showHeader": true,
@@ -2012,7 +1968,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"mission\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    Backup_Volt: r[\"backup power voltage\"],\r\n    Primary_Volt: r[\"primary power voltage\"],\r\n    Primary_Current: r[\"primary power current\"],\r\n    Vdd_Volt: r[\"vdd voltage\"],\r\n    Vdd_current: r[\"vdd current\"],\r\n  }))\r\n  ",
           "refId": "A"
@@ -2051,7 +2007,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "fieldConfig": {
             "defaults": {
@@ -2135,9 +2091,7 @@
           "options": {
             "footer": {
               "fields": "",
-              "reducer": [
-                "sum"
-              ],
+              "reducer": ["sum"],
               "show": false
             },
             "showHeader": true,
@@ -2153,7 +2107,7 @@
             {
               "datasource": {
                 "type": "influxdb",
-                "uid": "9E7YPBwSk"
+                "uid": "influxdb"
               },
               "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"gps altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    latitude: r.latitude,\r\n    longitude: r.longitude,\r\n    gpsaltitude: r[\"gps altitude\"]\r\n  }))\r\n|> map(fn: (r) => ({\r\n      r with\r\n      latitude: float(v: r.latitude),\r\n      longitude: float(v: r.longitude)\r\n    }))",
               "refId": "A"
@@ -2180,7 +2134,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "fieldConfig": {
             "defaults": {
@@ -2219,9 +2173,7 @@
             "footer": {
               "enablePagination": false,
               "fields": "",
-              "reducer": [
-                "sum"
-              ],
+              "reducer": ["sum"],
               "show": false
             },
             "frameIndex": 1,
@@ -2238,7 +2190,7 @@
             {
               "datasource": {
                 "type": "influxdb",
-                "uid": "9E7YPBwSk"
+                "uid": "influxdb"
               },
               "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"pressure\" or r[\"_field\"] == \"temperature\" or r[\"_field\"] == \"pressure altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n      TimeStamp: r._time,\r\n      pressure: r.pressure,\r\n      temperature: r.temperature,\r\n      altitude: r[\"pressure altitude\"]\r\n    }))",
               "refId": "A"
@@ -2265,7 +2217,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "fieldConfig": {
             "defaults": {
@@ -2349,9 +2301,7 @@
           "options": {
             "footer": {
               "fields": "",
-              "reducer": [
-                "sum"
-              ],
+              "reducer": ["sum"],
               "show": false
             },
             "showHeader": true,
@@ -2367,7 +2317,7 @@
             {
               "datasource": {
                 "type": "influxdb",
-                "uid": "9E7YPBwSk"
+                "uid": "influxdb"
               },
               "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"rocket\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    Backup_Volt: r[\"backup power voltage\"],\r\n    Primary_Volt: r[\"primary power voltage\"],\r\n    Primary_Current: r[\"primary power current\"],\r\n    Vdd_Volt: r[\"vdd voltage\"],\r\n    Vdd_current: r[\"vdd current\"],\r\n  }))\r\n  ",
               "refId": "A"
@@ -2410,7 +2360,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "fieldConfig": {
             "defaults": {
@@ -2494,9 +2444,7 @@
           "options": {
             "footer": {
               "fields": "",
-              "reducer": [
-                "sum"
-              ],
+              "reducer": ["sum"],
               "show": false
             },
             "showHeader": true,
@@ -2512,7 +2460,7 @@
             {
               "datasource": {
                 "type": "influxdb",
-                "uid": "9E7YPBwSk"
+                "uid": "influxdb"
               },
               "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ground station1\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"gps altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    latitude: r.latitude,\r\n    longitude: r.longitude,\r\n    gpsaltitude: r[\"gps altitude\"]\r\n  }))\r\n|> map(fn: (r) => ({\r\n      r with\r\n      latitude: float(v: r.latitude),\r\n      longitude: float(v: r.longitude)\r\n    }))",
               "refId": "A"
@@ -2539,7 +2487,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "fieldConfig": {
             "defaults": {
@@ -2623,9 +2571,7 @@
           "options": {
             "footer": {
               "fields": "",
-              "reducer": [
-                "sum"
-              ],
+              "reducer": ["sum"],
               "show": false
             },
             "showHeader": true,
@@ -2641,7 +2587,7 @@
             {
               "datasource": {
                 "type": "influxdb",
-                "uid": "9E7YPBwSk"
+                "uid": "influxdb"
               },
               "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ground station1\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    Backup_Volt: r[\"backup power voltage\"],\r\n    Primary_Volt: r[\"primary power voltage\"],\r\n    Primary_Current: r[\"primary power current\"],\r\n    Vdd_Volt: r[\"vdd voltage\"],\r\n    Vdd_current: r[\"vdd current\"],\r\n  }))\r\n  ",
               "refId": "A"
@@ -2684,7 +2630,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "fieldConfig": {
             "defaults": {
@@ -2768,9 +2714,7 @@
           "options": {
             "footer": {
               "fields": "",
-              "reducer": [
-                "sum"
-              ],
+              "reducer": ["sum"],
               "show": false
             },
             "showHeader": true,
@@ -2786,7 +2730,7 @@
             {
               "datasource": {
                 "type": "influxdb",
-                "uid": "9E7YPBwSk"
+                "uid": "influxdb"
               },
               "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ground station2\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"gps altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    latitude: r.latitude,\r\n    longitude: r.longitude,\r\n    gpsaltitude: r[\"gps altitude\"]\r\n  }))\r\n|> map(fn: (r) => ({\r\n      r with\r\n      latitude: float(v: r.latitude),\r\n      longitude: float(v: r.longitude)\r\n    }))",
               "refId": "A"
@@ -2813,7 +2757,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "fieldConfig": {
             "defaults": {
@@ -2897,9 +2841,7 @@
           "options": {
             "footer": {
               "fields": "",
-              "reducer": [
-                "sum"
-              ],
+              "reducer": ["sum"],
               "show": false
             },
             "showHeader": true,
@@ -2915,7 +2857,7 @@
             {
               "datasource": {
                 "type": "influxdb",
-                "uid": "9E7YPBwSk"
+                "uid": "influxdb"
               },
               "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ground station2\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    Backup_Volt: r[\"backup power voltage\"],\r\n    Primary_Volt: r[\"primary power voltage\"],\r\n    Primary_Current: r[\"primary power current\"],\r\n    Vdd_Volt: r[\"vdd voltage\"],\r\n    Vdd_current: r[\"vdd current\"],\r\n  }))\r\n  ",
               "refId": "A"
@@ -2958,7 +2900,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "fieldConfig": {
             "defaults": {
@@ -3042,9 +2984,7 @@
           "options": {
             "footer": {
               "fields": "",
-              "reducer": [
-                "sum"
-              ],
+              "reducer": ["sum"],
               "show": false
             },
             "showHeader": true,
@@ -3060,7 +3000,7 @@
             {
               "datasource": {
                 "type": "influxdb",
-                "uid": "9E7YPBwSk"
+                "uid": "influxdb"
               },
               "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ground station3\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latitude\" or r[\"_field\"] == \"longitude\" or r[\"_field\"] == \"gps altitude\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    TimeStamp: r._time,\r\n    latitude: r.latitude,\r\n    longitude: r.longitude,\r\n    gpsaltitude: r[\"gps altitude\"]\r\n  }))\r\n|> map(fn: (r) => ({\r\n      r with\r\n      latitude: float(v: r.latitude),\r\n      longitude: float(v: r.longitude)\r\n    }))",
               "refId": "A"
@@ -3078,7 +3018,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "9E7YPBwSk"
+            "uid": "influxdb"
           },
           "fieldConfig": {
             "defaults": {
@@ -3162,9 +3102,7 @@
           "options": {
             "footer": {
               "fields": "",
-              "reducer": [
-                "sum"
-              ],
+              "reducer": ["sum"],
               "show": false
             },
             "showHeader": true,
@@ -3180,7 +3118,7 @@
             {
               "datasource": {
                 "type": "influxdb",
-                "uid": "9E7YPBwSk"
+                "uid": "influxdb"
               },
               "query": "from(bucket: \"rockoon\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ground station3\")\r\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n  |> map(fn: (r) => ({\r\n    Backup_Volt: r[\"backup power voltage\"],\r\n    Primary_Volt: r[\"primary power voltage\"],\r\n    Primary_Current: r[\"primary power current\"],\r\n    Vdd_Volt: r[\"vdd voltage\"],\r\n    Vdd_current: r[\"vdd current\"],\r\n  }))\r\n  ",
               "refId": "A"

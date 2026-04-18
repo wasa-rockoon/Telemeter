@@ -5,6 +5,7 @@ datasources:
     type: influxdb
     access: proxy
     url: ${INFLUX_URL}
+    uid: influxdb
     jsonData:
       version: Flux
       organization: wasa_rockoon
